@@ -6,24 +6,23 @@ module.exports = {
     'es2021': true,
     'node': true
   },
-  'sourceType': 'module',
   'extends': [
     'eslint:recommended',
     'plugin:react/recommended',
-    // 'plugin:@typescript-eslint/recommended'
+    'plugin:@typescript-eslint/recommended'
   ],
-  // parser: '@typescript-eslint/parser',
-  // 'parserOptions': {
-  //   'sourceType': 'module',
-  //   'ecmaFeatures': {
-  //     'jsx': true
-  //   },
-  //   'ecmaVersion': 13
-  // },
+  parser: '@typescript-eslint/parser',
+  'parserOptions': {
+    'sourceType': 'module',
+    'ecmaFeatures': {
+      'jsx': true
+    },
+    'ecmaVersion': 13
+  },
   'plugins': [
     'react',
     'react-hooks',
-    // '@typescript-eslint'
+    '@typescript-eslint'
   ],
   'rules': {
     'indent': [
@@ -37,7 +36,10 @@ module.exports = {
       'error',
       'unix'
     ],
-    'quotes': [2, 'single', { 'avoid-escape': true }],
+    'quotes': [
+      'error',
+      'single'
+    ],
     'semi': [
       'error',
       'never'
@@ -82,8 +84,8 @@ module.exports = {
       }
     ],
     'react/prop-types': 'off',
-    // '@typescript-eslint/no-explicit-any': 'off',
-    // '@typescript-eslint/no-var-requires': 'off'
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-var-requires': 'off'
   },
   'settings': {
     'react': {

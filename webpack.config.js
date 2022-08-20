@@ -1,20 +1,42 @@
 'use-strict'
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const StylelintPlugin = require('stylelint-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 const path = require('path')
 const isProd = process.env.NODE_ENV === 'production'
 
 const config = {
-  entry: __dirname + '/src/index.js',
+  mode: isProd ? 'production' : 'development',
+  context: __dirname,
+  entry: {
+    index: './src/index.tsx'
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].bundle.js',
-    publicPath: '/',
-    assetModuleFilename: 'images/[hash]-[name].[ext]'
+    filename: '[name].bundle.js'
+    // publicPath: '/',
+    // assetModuleFilename: 'images/[hash]-[name].[ext]'
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src/')
+    },
+    plugins: [new TsconfigPathsPlugin({
+      baseUrl: './src/'
+    })]
   },
   module: {
     rules: [
+      {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        loader: 'ts-loader',
+        options: {
+          transpileOnly: true
+        }
+      },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
@@ -64,11 +86,16 @@ const config = {
       filename: '[name].css',
       chunkFilename: '[id].css'
     }),
+    new ForkTsCheckerWebpackPlugin({
+      eslint: {
+        files: './src/**/*.{ts,tsx,js,jsx}'
+      }
+    }),
     new StylelintPlugin({
-      context: './src/scss'
+      context: './src/scss/'
     })
   ],
-  devtool: 'source-map',
+  devtool: 'inline-source-map',
 }
 
 if (!isProd) {

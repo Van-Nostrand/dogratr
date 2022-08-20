@@ -1,6 +1,6 @@
 module.exports = {
   apps : [{
-    name: "scoutberry",
+    name: "dogratr",
     script: 'server/index.js',
     instances: "max",
     env: {
