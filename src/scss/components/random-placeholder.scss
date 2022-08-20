@@ -1,0 +1,16 @@
+@use '../abstracts/vars';
+
+.random-placeholder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: vars.$medium-grey;
+  margin: 1.4rem auto 1.4rem 0;
+
+  &__text {
+    font-weight: 700;
+    font-size: 3rem;
+    color: vars.$eggshl;
+  }
+}

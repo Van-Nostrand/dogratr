@@ -1,0 +1,57 @@
+@use "../abstracts/vars";
+@use "../abstracts/mixins";
+
+.landing-page {
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  // font-family: 'Staatliches', sans-serif;
+  font-weight: normal;
+
+  &__container {
+    .landing-title {
+      display: inline;
+      margin-top: 10rem;
+      max-width: 100%;
+      font-size: 10rem;
+    }
+
+    .link-container {
+      display: flex;
+      flex-flow: row;
+      justify-content: space-around;
+      align-items: center;
+      width: 85%;
+      margin-top: 1rem;
+
+      a { font-size: 4rem; }
+    }
+  }
+
+  @include mixins.respond(tab-port) {
+    align-items: flex-start;
+
+    &__container {
+      @include mixins.sticky-bottom-left;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      .landing-title {
+        margin-top: 4.5rem;
+      }
+
+      .link-container {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  }
+
+  @include mixins.respond(phone) {
+    width: 100%;
+    font-size: 10rem;
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "extends": "stylelint-config-standard-scss",
+  "rules": {
+    "at-rule-empty-line-before": null,
+    "declaration-empty-line-before": null,
+    "scss/double-slash-comment-empty-line-before": null,
+    "indentation": [
+      2,
+      {
+        "disableFix": true
+      }
+    ],
+    "string-quotes": null,
+    "color-hex-length": null,
+    "color-function-notation": null,
+    "selector-class-pattern": null,
+    "alpha-value-notation": null,
+    "selector-list-comma-newline-after": null,
+    "scss/operator-no-newline-before": null,
+    "declaration-block-no-redundant-longhand-properties": null,
+    "font-family-name-quotes": null,
+    "scss/at-mixin-parentheses-space-before": null,
+    "no-descending-specificity": null
+  }
+}

@@ -1,0 +1,8 @@
+@use '../abstracts/vars';
+@use '../abstracts/mixins';
+
+.b-img-element {
+  position: absolute;
+
+  transition: all 2s ease-in;
+}

@@ -1,0 +1,23 @@
+@use '../abstracts/vars';
+@use '../abstracts/mixins';
+
+.background-image {
+  color: vars.$color-primary;
+  object-fit: cover;
+  transform: scale(1.5) translate(0, 0%);
+  width: 100vw;
+  height: 100vh;
+}
+
+.background-image-container {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.background-image-container-small {
+  height: vars.$landed-image-height;
+  // transform: translate(0, -20%);
+  transition: all 2s ease-in;
+}

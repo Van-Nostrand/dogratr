@@ -1,0 +1,112 @@
+@use "../abstracts/vars";
+@use "../abstracts/mixins";
+
+/* lobster-regular - latin */
+@font-face {
+  font-family: 'Lobster';
+  font-style: normal;
+  font-weight: 400;
+  src:
+    local('Lobster'),
+    url('../../fonts/lobster-v23-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../../fonts/lobster-v23-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../../fonts/lobster-v23-latin-regular.woff') format('woff'), /* Modern Browsers */
+    url('../../fonts/lobster-v23-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('../../fonts/lobster-v23-latin-regular.svg#Lobster') format('svg'); /* Legacy iOS */
+}
+
+/* staatliches-regular - latin */
+@font-face {
+  font-family: 'Staatliches';
+  font-style: normal;
+  font-weight: 400;
+  src:
+    local('Staatliches'),
+    url('../../fonts/staatliches-v5-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+    url('../../fonts/staatliches-v5-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* fredoka-one-regular - latin */
+@font-face {
+  font-family: 'Fredoka One';
+  font-style: normal;
+  font-weight: 400;
+  src:
+    local('Fredoka One'),
+    url('../../fonts/fredoka-one-v8-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../../fonts/fredoka-one-v8-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+    url('../../fonts/fredoka-one-v8-latin-regular.woff') format('woff'), /* Modern Browsers */
+    url('../../fonts/fredoka-one-v8-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('../../fonts/fredoka-one-v8-latin-regular.svg#FredokaOne') format('svg'); /* Legacy iOS */
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  min-height: 100vh;
+  font-family: Staatliches, sans-serif;
+  background-color: white;
+}
+
+a {
+  border: none;
+  text-decoration: none;
+  font-weight: bold;
+}
+@include mixins.anchor-colors (light);
+// a:link { color: #1c1c1c; }
+// a:visited { color: #202f46; }
+// a:hover { color: #242424; }
+// a:active { color: #333333; }
+// a:focus { color: #242424; }
+
+#root {
+  display: flex;
+  flex-flow: row;
+  min-height: 100vh;
+  height: auto;
+
+  @include mixins.respond(phone) {
+    flex-flow: column;
+    min-height: unset;
+    height: unset;
+  }
+}
+
+.go-back-arrow {
+  height: 2rem;
+  // width: 2.2rem;
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: min-content;
+  position: relative;
+  margin-bottom: 1rem;
+  margin-top: -1rem;
+
+  div {
+    font-size: 1.4rem;
+    line-height: 1.4rem;
+    margin-top: 0.4rem;
+    // margin-left: 0.1rem;
+  }
+
+  svg {
+    @include mixins.image-element;
+    position: relative;
+    width: unset;
+    height: 70%;
+    flex: 0 0 2.2rem;
+    // top: -0.2rem;
+  }
+}

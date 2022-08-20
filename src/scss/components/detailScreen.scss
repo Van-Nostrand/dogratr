@@ -1,0 +1,124 @@
+@use "../abstracts/mixins";
+@use "../abstracts/vars";
+
+.detail-page-container {
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+
+  .back-arrow-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    > div { font-size: 1.4rem; }
+  }
+
+  $mobile-content-width: 85%;
+
+  .col-1 {
+    display: flex;
+    flex-direction: column;
+    max-width: min($mobile-content-width, 560px);
+  }
+
+  .lazy-image {
+    position: relative;
+    flex: 0 1 auto;
+    width: 100%;
+
+    &__anchor {
+      position: relative;
+      display: block;
+      cursor: pointer;
+
+      img {
+        @include mixins.image-element;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    }
+
+    &__placeholder {
+      position: relative;
+      width: 100%;
+    }
+  }
+
+  .full-res { // "click for full res"
+    margin-top: 0.3rem;
+    font-size: 1.2rem;
+    flex: 0 0 auto;
+    width: $mobile-content-width;
+    position: relative;
+  }
+
+  .info {
+    font-size: 2rem;
+    margin: 1rem 0 0;
+
+    &__title {
+      font-size: 1.7em;
+      margin-bottom: 0.7rem;
+    }
+
+    &__email {
+      // ratio 1.647
+      display: flex;
+      align-items: center;
+      width: max-content;
+
+      div {
+        display: block;
+        width: 1.98rem;
+        height: 1.2rem;
+        margin-right: 0.9rem;
+
+        img { @include mixins.image-element; }
+      }
+      span { font-weight: 300; }
+    }
+  }
+
+  @include mixins.breakpoint(sm) {
+    justify-content: flex-start;
+    flex-direction: column;
+    max-width: 100%;
+
+    .col-1 {
+      flex: 0 1 auto;
+      justify-content: flex-start;
+    }
+
+    .info {
+      flex: 1 1 30%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      margin: 0;
+    }
+  }
+
+  @include mixins.breakpoint(md) {
+    flex-direction: row;
+
+    .col-1 { flex: 0 1 70%; }
+
+    .lazy-image img,
+    .col-1 { max-height: 90vh; }
+
+    .info {
+      width: max-content;
+
+      margin-left: 2rem;
+    }
+  }
+}
+
+.one-to-one { padding-bottom: 100%; }
+.two-by-three { padding-bottom: 150%; }
+.seven-by-nine { padding-bottom: 128.57%; }
+.four-by-five { padding-bottom: 125%; }
+.three-by-four { padding-bottom: 133.33%; }

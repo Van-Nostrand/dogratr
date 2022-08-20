@@ -1,0 +1,15 @@
+@use "../abstracts/vars";
+@use "../abstracts/mixins";
+
+.gallery-page-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: center;
+
+  @include mixins.respond(phone) {
+    flex-flow: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+}

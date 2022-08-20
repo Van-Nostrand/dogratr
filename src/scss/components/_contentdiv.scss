@@ -1,0 +1,31 @@
+@use "../abstracts/vars";
+@use "../abstracts/mixins";
+
+.content-container {
+  position: relative;
+  padding: 3rem;
+
+  display: inline-block;
+  background-color: #fff;
+  // margin-left: vars.$sidenav-width;
+  width: 100%;
+  // min-height: 680px;
+  min-height: 100%;
+  box-sizing: border-box;
+
+  @include mixins.respond(tab-port) {
+    padding: 2rem;
+  }
+
+  @include mixins.respond(phone) {
+    margin-left: unset;
+    min-height: unset;
+    padding: vars.$phone-x-pad;
+  }
+
+  .scrolling-target {
+    position: absolute;
+    opacity: 0;
+    top: 5rem;
+  }
+}

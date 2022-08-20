@@ -1,0 +1,189 @@
+@use "../abstracts/vars";
+@use "../abstracts/mixins";
+@use 'sass:math';
+
+.navbar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  height: 100vh;
+  width: vars.$sidenav-width;
+  font-size: 4rem;
+  background-color: vars.$color-nav-background;
+  z-index: 1;
+
+  @include mixins.respond(phone) {
+    top: 0;
+    flex-flow: row;
+    align-items: center;
+    justify-content: space-between;
+    height: vars.$phonenav-outer-height;
+    width: 100%;
+    max-width: 100%;
+    font-size: 4rem;
+    z-index: 10;
+  }
+
+  .relative-container {
+    height: 100%;
+    position: relative;
+
+    @include mixins.respond(phone) {
+      background-color: vars.$color-nav-background;
+      height: vars.$phonenav-outer-height;
+      width: 100%;
+    }
+
+    .navbar__content {
+      height: 100%;
+      display: flex;
+      flex-flow: column;
+      align-items: stretch;
+
+      @include mixins.respond(phone) {
+        height: vars.$phonenav-outer-height;
+        max-width: calc(100% - vars.$phone-x-pad);
+        width: 100%;
+        justify-content: flex-end;
+
+        .menu-dots { margin-left: vars.$phone-x-pad; }
+      }
+
+      @include mixins.breakpoint(sm) {
+        padding-right: 1rem;
+      }
+
+      .navbar__title {
+        margin: 1.5rem 0 1rem vars.$phone-x-pad;
+        font-size: 4.3rem;
+        color: white;
+
+        @include mixins.respond(tab-land) {
+          font-size: 4rem;
+        }
+
+        @include mixins.respond(phone) {
+          margin: 0 0 0 vars.$phone-x-pad;
+          font-size: 4rem;
+          line-height: 1;
+        }
+      }
+
+      .navbar__links {
+        margin-left: vars.$phone-x-pad;
+        height: 100%;
+        display: grid;
+        position: relative;
+
+        grid-template-columns: repeat(3, 30%);
+        grid-template-rows: repeat(3, 1fr);
+        grid-template-areas:
+          "about . ."
+          ". works ."
+          ". . contact";
+
+        a {
+          position: relative;
+          border: none;
+          font-size: 2.7rem;
+          color: white;
+          width: max-content;
+          height: max-content;
+          margin-top: 3.6rem;
+          display: inline-block;
+          transform: rotate(90deg);
+          left: -2rem;
+        }
+
+        a:nth-of-type(1) {
+          grid-area: about;
+        }
+
+        a:nth-of-type(2) {
+          grid-area: works;
+        }
+
+        a:nth-of-type(3) {
+          grid-area: contact;
+        }
+
+        @include mixins.respond(phone) {
+          grid-column: 1 / span 4;
+          grid-row: 2;
+          display: flex;
+          flex-flow: row;
+          justify-content: start;
+          column-gap: 1rem;
+          margin-top: 0.5rem;
+
+          a {
+            transform: rotate(0);
+            left: unset;
+            margin-top: 0.5rem;
+          }
+        }
+      }
+
+      .navbar__image {
+        align-self: end;
+        position: relative;
+        z-index: 11;
+
+        img {
+          display: block;
+          object-fit: contain;
+          width: 100%;
+          height: 100%;
+        }
+
+        @include mixins.respond(phone) {
+          position: absolute;
+          right: 0;
+          height: 85%;
+        }
+      }
+    }
+
+    .navbar__drawer {
+      position: absolute;
+      width: calc(100% - vars.$phone-x-pad);
+      bottom: 0;
+      z-index: -1;
+      transition: 120ms transform ease-out;
+      background-color: vars.$color-gloomy-grey;
+      padding-left: vars.$phone-x-pad;
+
+      &--open {
+        transform: translateY(100%);
+      }
+
+      .navbar__links {
+        display: flex;
+        column-gap: 1rem;
+        width: calc(100% - vars.$phone-x-pad);
+        @include mixins.anchor-colors(dark);
+      }
+    }
+  }
+}
+
+.nav-mask {
+  position: absolute;
+  bottom: calc(-100vh - 50px); // screen height and nav drawer height
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  // background-color: rgba(255, 0, 0, 0.4);
+  transform: scale(0);
+
+  &--open {
+    transform: scale(1);
+  }
+}
+
+.landing-nav-title, .landing-nav-links {
+  opacity: 0;
+}
