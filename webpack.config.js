@@ -15,16 +15,15 @@ const config = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].bundle.js'
-    // publicPath: '/',
-    // assetModuleFilename: 'images/[hash]-[name].[ext]'
+    filename: './[name].bundle.js'
   },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src/')
     },
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.css', '.scss', '.sass'],
     plugins: [new TsconfigPathsPlugin({
-      baseUrl: './src/'
+      baseUrl: './src'
     })]
   },
   module: {

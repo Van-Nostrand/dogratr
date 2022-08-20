@@ -12,15 +12,11 @@ import Contact from './Contact'
 import ImageGallery from './ImageGallery'
 import LandingPage from './LandingPage'
 
-import {
-  ART_DATA
-} from '@/constants/CONSTANTS'
-
 const SCROLL_TOP_EXCEPTIONS = [
   '/works'
 ]
 
-export default function App () {
+export default function App (): React.FC {
   const location = useLocation()
   useEffect(() => {
     if (!SCROLL_TOP_EXCEPTIONS.includes(location.pathname)) {
@@ -33,13 +29,13 @@ export default function App () {
   }, [location.pathname])
 
   return (
-    <>
+    <div className="page">
       <Navbar />
       <div className='content-container'>
         <Routes>
           <Route
-            exact
-            path='/'
+            index
+            // path='/'
             element={<LandingPage />}
           />
           <Route
@@ -64,7 +60,7 @@ export default function App () {
           />
         </Routes>
       </div>
-    </>
+    </div>
   )
 }
 

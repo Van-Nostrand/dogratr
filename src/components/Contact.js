@@ -1,12 +1,11 @@
-import React, {useState, useEffect} from 'react'
-import FacebookLogo from '../../assets/facebook.svg'
+import React from 'react'
+// import FacebookLogo from '../../assets/facebook.svg'
 import InstaLogo from '../../assets/instalogoB&W.svg'
 import EmailLogo from '../../assets/emailLogo.svg'
 
-export default function Contact (props) {
-  const [ inputText, setInputText ] = useState('')
+export default function Contact () {
 
-  return(
+  return (
     <div className="contact-page-container">
       <p>
         Reach out for information about prints and commissioned work
@@ -20,18 +19,18 @@ export default function Contact (props) {
           <img className="social-logo" src={InstaLogo} />
         </a>
       </div>
-    <Footer />
+      <Footer />
     </div>
   )
 }
 
 const Footer = () => {
   const style = {
-    position: "fixed",
-    bottom: "0",
-    fontSize: "8px",
-    color: "rgba(0,0,0,0.6)",
-    zIndex:"0"
+    position: 'fixed',
+    bottom: '0',
+    fontSize: '8px',
+    color: 'rgba(0,0,0,0.6)',
+    zIndex:'0'
   }
 
   return (

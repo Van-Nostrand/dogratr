@@ -1,4 +1,4 @@
-export const getRandomIntBetween = (min, max) => {
+export const getRandomIntBetween = (min: number, max: number) => {
   try {
     if (!Number.isInteger(min) || !Number.isInteger(max)) {
       throw new TypeError('min and/or max is not an integer')

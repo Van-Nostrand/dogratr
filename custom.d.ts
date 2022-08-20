@@ -4,3 +4,12 @@ declare module '*.svg' {
 }
 
 declare module 'bcrypt'
+
+// declare module 'JSX.IntrinsicElements' {
+//   export interface JSX.IntrinsicElements {}
+// }
+declare module 'JSX' {
+  export default interface JSX {
+    IntrinsicElements: any;
+  }
+}

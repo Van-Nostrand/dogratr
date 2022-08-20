@@ -7,7 +7,6 @@ import {
   useLocation
 } from 'react-router-dom'
 
-import NavbarBackgroundImage from '@/assets/martinandI-draft4.svg'
 import '@/scss/components/_navbar.scss'
 import useWindowSize from '@/functions/useWindowSize'
 import MenuDots from '@/components/MenuDots'
@@ -32,7 +31,7 @@ export default function Navbar () {
   const navbarLinksClass = `navbar__links${landingPage ? ' landing-nav-links' : ''}`
   const navbarTitleClass = `navbar__title${landingPage ? ' landing-nav-title' : ''}`
 
-  const renderLinks = () => (
+  const renderLinks: any = () => (
     <div
       className={navbarLinksClass}
       onClick={() => setOpenDrawer(false)}
@@ -69,19 +68,14 @@ export default function Navbar () {
           { sub600 ? <></> : renderLinks() }
           { sub600 ? <MenuDots handleClick={handleDotClick} /> : <></> }
           <div className="navbar__image">
-            <img
-              src={NavbarBackgroundImage}
-              alt='martinandi'
-              onClick={shrinkTheNav}
-            />
           </div>
         </div>
         <div className={navbarDrawerClass}>
           { sub600 ? renderLinks() : <></> }
         </div>
-        <div 
+        <div
           className={navMaskClass}
-          onClick={() => setOpenDrawer(false)} 
+          onClick={() => setOpenDrawer(false)}
         />
       </div>
     </nav>

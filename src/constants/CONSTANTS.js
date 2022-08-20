@@ -56,7 +56,7 @@ export const OLD_ART_DATA = [
     description: 'description here',
     name: 'jayden'
   },
-];
+]
 
 export const ART_DATA = [
   {
@@ -211,7 +211,7 @@ export const PAGE_DATA = {
     ],
     aboutPhoto: 'scoutberry.png',
   }
-};
+}
 
 export const RANDOM_COLORS = [
   'rgba(228, 199, 79, 1)',
@@ -224,4 +224,4 @@ export const RANDOM_COLORS = [
   'rgba(8, 104, 119, 1)',
   'rgba(66, 158, 0, 1)',
   'rgba(76, 9, 193, 1)'
-];
+]

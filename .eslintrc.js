@@ -50,7 +50,6 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
     // async await
     'generator-star-spacing': 0,
-    'space-after-keywords': 1,
     'comma-spacing': [
       'error',
       {

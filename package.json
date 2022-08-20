@@ -2,7 +2,7 @@
   "name": "dogratr",
   "version": "1.0.0",
   "description": "the hottest new social network celebrating gud puppers",
-  "main": "src/index.tsx",
+  "main": "index.js",
   "engines": {
     "npm": ">7.x"
   },

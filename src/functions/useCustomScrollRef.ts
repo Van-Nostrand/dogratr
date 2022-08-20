@@ -1,9 +1,10 @@
 import { useState, useLayoutEffect } from 'react'
 
 //bufferValue is an integer defining the number of pixels past the target element that can be scrolled to before sending show=false
-export default function useCustomScrollRef (bufferValue, initialScrollTarget = 0) {
+export default function useCustomScrollRef (bufferValue: number, initialScrollTarget = 0) {
   const [ show, doShow ] = useState(false)
-  const [ scrollTarget, setScrollTarget ] = useState(initialScrollTarget + bufferValue)
+  const scrollTarget = initialScrollTarget + bufferValue
+  // const [ scrollTarget, setScrollTarget ] = useState(initialScrollTarget + bufferValue)
 
   useLayoutEffect(() => {
 
@@ -17,7 +18,7 @@ export default function useCustomScrollRef (bufferValue, initialScrollTarget = 0
         doShow(true)
       }
       // if the scrollposition has not eclipsed the scroll target, do not show
-      else if(scrollTarget > currentScrollPosition){
+      else if (scrollTarget > currentScrollPosition) {
         doShow(false)
       }
     }
