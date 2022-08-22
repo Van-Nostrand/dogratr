@@ -1,9 +1,10 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { increment, decrement } from '@/features/counter/counterSlice'
+import { increment, decrement } from '@/store/counter/counterSlice'
+import { IRootStore } from '@/store/types'
 
 export default function ReduxTest () {
-  const count = useSelector(state => state.counter.value)
+  const count = useSelector((state: IRootStore) => state.counter.value)
   const dispatch = useDispatch()
 
   return (

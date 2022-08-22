@@ -1,4 +1,3 @@
-import { TsConfigJson } from 'type-fest'
 declare module '*.svg' {
   const content: any
   export default content
