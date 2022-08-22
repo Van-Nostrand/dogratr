@@ -1,22 +1,25 @@
 import React from 'react'
-// import FacebookLogo from '../../assets/facebook.svg'
-import InstaLogo from '../../assets/instalogoB&W.svg'
-import EmailLogo from '../../assets/emailLogo.svg'
 
 export default function Contact () {
+  const FacebookLogo = require('@/assets/facebook.svg')
+  const InstaLogo = require('@/assets/instalogoB&W.svg')
+  const EmailLogo = require('@/assets/emailLogo.svg')
 
   return (
     <div className="contact-page-container">
       <p>
-        Reach out for information about prints and commissioned work
+        Reach out for information
       </p>
       <div className="contact-logo-container">
-        <a href="mailto:acgallos@gmail.com">
+        <a href="mailto:example@email.com">
           <img className="social-logo" src={EmailLogo} />
         </a>
 
-        <a href="https://www.instagram.com/scout_berry/">
+        <a href="#">
           <img className="social-logo" src={InstaLogo} />
+        </a>
+        <a href="#">
+          <img className="social-logo" src={FacebookLogo} />
         </a>
       </div>
       <Footer />
@@ -24,8 +27,8 @@ export default function Contact () {
   )
 }
 
-const Footer = () => {
-  const style = {
+const Footer: React.FC = () => {
+  const style: React.CSSProperties = {
     position: 'fixed',
     bottom: '0',
     fontSize: '8px',

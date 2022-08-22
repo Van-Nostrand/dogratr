@@ -4,7 +4,14 @@ import { Cloudinary } from '@cloudinary/url-gen'
 import { fill } from '@cloudinary/url-gen/actions/resize'
 import { cloud_name } from '@/config/config'
 
-export default function Image ({ publicId, width, height, loadHandler }) {
+interface ImageProps {
+  publicId: string;
+  width?: number;
+  height?: number;
+  loadHandler?: () => void;
+}
+
+export default function Image ({ publicId, width, height, loadHandler }: ImageProps) {
 
   const cld = new Cloudinary({
     cloud: {

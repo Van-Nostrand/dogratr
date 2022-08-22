@@ -16,13 +16,13 @@ export default function Navbar () {
   const windowSize = useWindowSize()
   const sub600 = windowSize.width < 600
 
-  const [landingPage, setLandingPage] = useState(true)
-  const [shrinkNav, setShrinkNav] = useState()
-  const [openDrawer, setOpenDrawer] = useState(false)
+  const [landingPage, setLandingPage] = useState<boolean>(true)
+  // const [shrinkNav, setShrinkNav] = useState<boolean>(false)
+  const [openDrawer, setOpenDrawer] = useState<boolean>(false)
 
-  const shrinkTheNav = () => {
-    setShrinkNav(!shrinkNav)
-  }
+  // const shrinkTheNav = () => {
+  //   setShrinkNav(!shrinkNav)
+  // }
 
   useEffect(() => {
     setLandingPage(current.pathname === '/')
@@ -48,7 +48,7 @@ export default function Navbar () {
     </div>
   )
 
-  const handleDotClick = (e) => {
+  const handleDotClick = () => {
     setOpenDrawer(!openDrawer)
   }
 

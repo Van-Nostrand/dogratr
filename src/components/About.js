@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import '@/scss/components/_about.scss'
 
-export default function About (props) {
+export default function About () {
 
   const [ imagePath, setImagePath ] = useState()
 
@@ -11,7 +11,7 @@ export default function About (props) {
     setImagePath(images[0])
   }, [])
 
-  const paragraph1 = <p className='paragraph1'>"woof woof"</p>
+  const paragraph1 = <p className='paragraph1'>woof woof</p>
 
   if (imagePath) {
     return (

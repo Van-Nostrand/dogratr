@@ -4,7 +4,6 @@ import React, {
   useState
 } from 'react'
 import { useParams } from 'react-router-dom'
-import EmailLogo from '../../assets/emailLogo.svg'
 import Image from '@/components/Image'
 import { ART_DATA } from '@/constants/CONSTANTS'
 import useWindowSize from '@/functions/useWindowSize'
@@ -12,10 +11,11 @@ import GoBackArrow from '@/components/GoBackArrow'
 import '@/scss/components/detailScreen.scss'
 
 export default function Details () {
+  const EmailLogo = require('@/assets/emailLogo.svg')
   const imageRef = useRef(null)
   const placeholderRef = useRef(null)
   const windowSize = useWindowSize()
-  const [loaded, setLoaded] = useState(false)
+  const [loaded, setLoaded] = useState<boolean>(false)
   const { name } = useParams()
 
   useEffect(() => {
@@ -29,14 +29,12 @@ export default function Details () {
   }, [loaded])
 
   const isMobile = windowSize.width < 600
-  const theImage = ART_DATA.find(art => art.name.toLowerCase().replace(/( )/gi, "+") === name)
+  const theImage = ART_DATA.find(art => art.name.toLowerCase().replace(/( )/gi, '+') === name)
   const imageHeight = Math.floor(Math.max(window.innerHeight * 0.85, 520))
-  const emailString = `mailto:acgallos@gmail.com?subject=Inquiry: ${theImage.name}`
-  // const columnClass = `left-column ${theImage.class}`
+  const emailString = `mailto:example@email.com?subject=Inquiry: ${theImage.name}`
 
   const handleLoading = () => {
-    // setLoaded(true)
-    // imageRef.current.style.paddingBottom = ''
+    setLoaded(true)
   }
 
   const renderBackArrow = () => isMobile ? <GoBackArrow to="/works" /> : <></>
@@ -51,7 +49,6 @@ export default function Details () {
         href={theImage.url}
       >
         <Image
-          className="lazy-image__img"
           height={imageHeight}
           publicId={theImage.publicId}
           loadHandler={handleLoading}

@@ -1,11 +1,15 @@
 import React from 'react'
 import '@/scss/components/menu-dots.scss'
 
-export default function MenuDots (props) {
+interface MenuDotsProps {
+  handleClick: () => void;
+}
+
+export default function MenuDots ({ handleClick }: MenuDotsProps) {
   return (
     <div
       className="menu-dots"
-      onClick={props.handleClick}
+      onClick={handleClick}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

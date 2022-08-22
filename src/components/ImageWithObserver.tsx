@@ -1,15 +1,24 @@
-import React, {useState, useEffect, useRef} from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { useIntersectionObserver } from '@/functions/useIntersectionObserver'
 import Image from '@/components/Image'
 import RandomPlaceholder from '@/components/RandomPlaceholder'
 // import '@/scss/components/image.scss'
 
+interface ImageWithObserverProps {
+  imageData: {
+    name: string;
+    publicId: string;
+  }
+  width: number;
+  offline: boolean;
+}
+
 /**
  * loads a placeholder until the image is ready to load
  * @param {source} props path/name of image file
  */
-export default function ImageWithObserver ({ imageData, width, offline }) {
+export default function ImageWithObserver ({ imageData, width, offline }: ImageWithObserverProps) {
 
   const [showImage, setShowImage] = useState(false)
   const placeholderRef = useRef(null)
@@ -22,7 +31,7 @@ export default function ImageWithObserver ({ imageData, width, offline }) {
     return (
       <Link
         className="thumbnail"
-        to={`/details/${imageData.name.toLowerCase().replace(/( )/gi, "+")}`}
+        to={`/details/${imageData.name.toLowerCase().replace(/( )/gi, '+')}`}
       >
         <div className="thumbnail-hover-text">more info</div>
         { !offline ? (
@@ -30,9 +39,9 @@ export default function ImageWithObserver ({ imageData, width, offline }) {
             width={width}
             publicId={imageData.publicId}
           />)
-        : (
-          <RandomPlaceholder />
-        )}
+          : (
+            <RandomPlaceholder />
+          )}
       </Link>
     )
   }

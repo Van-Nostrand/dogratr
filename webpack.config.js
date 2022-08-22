@@ -1,31 +1,28 @@
 'use-strict'
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const StylelintPlugin = require('stylelint-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
-const path = require('path')
 const isProd = process.env.NODE_ENV === 'production'
 
 const config = {
   mode: isProd ? 'production' : 'development',
   context: __dirname,
   entry: {
-    index: './src/index.tsx'
+    index: './src/index.tsx',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: './[name].bundle.js'
+    filename: './bundle.js'
   },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src/')
     },
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.css', '.scss', '.sass'],
-    plugins: [new TsconfigPathsPlugin({
-      baseUrl: './src'
-    })]
   },
+  devtool: 'inline-source-map',
   module: {
     rules: [
       {
@@ -44,6 +41,15 @@ const config = {
         }
       },
       {
+        test: /\.css$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+          },
+          'css-loader',
+        ],
+      },
+      {
         test: /\.s[ac]ss$/i,
         use: [
           'style-loader',
@@ -52,9 +58,9 @@ const config = {
             loader: 'sass-loader',
             options: {
               implementation: require('sass'),
-            }
-          }
-        ]
+            },
+          },
+        ],
       },
       {
         test: /\.(jpe?g|svg|png|gif)$/,
@@ -73,17 +79,13 @@ const config = {
         test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
         type: 'asset/resource'
       }
-    ]
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'public/index.html'),
+      template: './public/index.html',
       filename: 'index.html',
-      inject: 'body'
-    }),
-    new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[id].css'
+      inject: 'body',
     }),
     new ForkTsCheckerWebpackPlugin({
       eslint: {
@@ -93,8 +95,7 @@ const config = {
     new StylelintPlugin({
       context: './src/scss/'
     })
-  ],
-  devtool: 'inline-source-map',
+  ]
 }
 
 if (!isProd) {
