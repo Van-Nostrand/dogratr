@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { useIntersectionObserver } from '@/functions/useIntersectionObserver'
-import Image from '@/components/Image'
+import CloudinaryImage from '@/components/CloudinaryImage'
 import RandomPlaceholder from '@/components/RandomPlaceholder'
 // import '@/scss/components/image.scss'
 
@@ -35,7 +35,7 @@ export default function ImageWithObserver ({ imageData, width, offline }: ImageW
       >
         <div className="thumbnail-hover-text">more info</div>
         { !offline ? (
-          <Image
+          <CloudinaryImage
             width={width}
             publicId={imageData.publicId}
           />)

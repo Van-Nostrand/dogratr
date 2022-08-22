@@ -1,31 +1,35 @@
-import React from 'react'
-import { AdvancedImage } from '@cloudinary/react'
-import { Cloudinary } from '@cloudinary/url-gen'
-import { fill } from '@cloudinary/url-gen/actions/resize'
-import { cloud_name } from '@/config/config'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import './image.scss'
 
 interface ImageProps {
-  publicId: string;
-  width?: number;
-  height?: number;
-  loadHandler?: () => void;
+  src: string;
+  alt?: string;
 }
 
-export default function Image ({ publicId, width, height, loadHandler }: ImageProps) {
+export default function Image ({ src, alt }: ImageProps) {
 
-  const cld = new Cloudinary({
-    cloud: {
-      cloudName: cloud_name
-    }
-  })
-  const theImage = cld.image(publicId)
-  if (width && !height) {
-    theImage.resize(fill().width(width))
-  } else if (!width && height) {
-    theImage.resize(fill().height(height))
-  } else if (width && height) {
-    theImage.resize(fill().width(width).height(height))
-  }
+  const [imageSrc, setImageSrc] = useState<string>('')
 
-  return <AdvancedImage onLoad={loadHandler} cldImg={theImage} />
+  useEffect(() => {
+    axios.get(src).then((res) => {
+      console.log('result is ', res.data.message)
+      setImageSrc(res.data.message)
+    })
+  }, [])
+
+  return (
+    <div
+      className="img"
+    >
+      <img
+        className="img__img"
+        alt={alt}
+        src={imageSrc}
+      />
+      <div
+        className="img__placeholder"
+      />
+    </div>
+  )
 }

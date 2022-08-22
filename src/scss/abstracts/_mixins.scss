@@ -80,3 +80,17 @@
     a:focus { color: #242424; }
   }
 }
+
+@mixin soft-border {
+  border: 0.3rem solid vars.$colour-soft-border;
+  border-radius: 0.4rem;
+}
+
+@mixin standard-before-after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}

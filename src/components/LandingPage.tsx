@@ -6,15 +6,13 @@ export default function LandingPage () {
     <div className="landing-page">
       <div className="landing-page__container">
         <Link
-          to='/works'
+          to='/ratr'
           className="landing-title"
         >
-          Annie Gallos
+          DOG RATR
         </Link>
         <div className="link-container">
-          <Link to='/about'>About</Link>
-          <Link to='/works'>Works</Link>
-          <Link to='/contact'>Contact</Link>
+          <Link to='/ratr'>Woof</Link>
         </div>
       </div>
     </div>

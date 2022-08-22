@@ -2,7 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { getRandomIntBetween } from '@/functions/getRandomIntBetween'
 import '@/scss/components/random-placeholder.scss'
 
-export default function RandomPlaceholder (props) {
+interface RandomPlaceholderProps {
+  maxWidth?: number;
+  minWidth?: number;
+  maxHeight?: number;
+  minHeight?: number;
+}
+
+export default function RandomPlaceholder (props: RandomPlaceholderProps) {
 
   const WIDTH_RANGE = [props?.minWidth || 200, props?.maxWidth || 500]
   const HEIGHT_RANGE = [props?.minHeight || 200, props?.maxHeight || 500]

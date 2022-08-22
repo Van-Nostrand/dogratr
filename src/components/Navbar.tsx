@@ -1,15 +1,9 @@
-import React, {
-  useState,
-  useEffect
-} from 'react'
-import {
-  Link,
-  useLocation
-} from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 
-import '@/scss/components/_navbar.scss'
 import useWindowSize from '@/functions/useWindowSize'
 import MenuDots from '@/components/MenuDots'
+import './navbar.scss'
 
 export default function Navbar () {
   const current = useLocation()
@@ -17,26 +11,19 @@ export default function Navbar () {
   const sub600 = windowSize.width < 600
 
   const [landingPage, setLandingPage] = useState<boolean>(true)
-  // const [shrinkNav, setShrinkNav] = useState<boolean>(false)
   const [openDrawer, setOpenDrawer] = useState<boolean>(false)
 
-  // const shrinkTheNav = () => {
-  //   setShrinkNav(!shrinkNav)
-  // }
-
-  useEffect(() => {
-    setLandingPage(current.pathname === '/')
-  })
+  useEffect(() => setLandingPage(current.pathname === '/'))
 
   const navbarLinksClass = `navbar__links${landingPage ? ' landing-nav-links' : ''}`
   const navbarTitleClass = `navbar__title${landingPage ? ' landing-nav-title' : ''}`
 
-  const renderLinks: any = () => (
+  const renderLinks = () => (
     <div
       className={navbarLinksClass}
       onClick={() => setOpenDrawer(false)}
     >
-      <Link to="/about">
+      {/* <Link to="/about">
         About
       </Link>
       <Link to="/works">
@@ -44,7 +31,7 @@ export default function Navbar () {
       </Link>
       <Link to="/contact">
         Contact
-      </Link>
+      </Link> */}
     </div>
   )
 
@@ -55,6 +42,7 @@ export default function Navbar () {
   const navMaskClass = openDrawer ? 'nav-mask nav-mask--open' : 'nav-mask'
 
   const navbarDrawerClass = `navbar__drawer${openDrawer ? ' navbar__drawer--open' : '' }`
+
   return (
     <nav className="navbar">
       <div className="relative-container">
@@ -63,7 +51,7 @@ export default function Navbar () {
             to="/"
             className={navbarTitleClass}
           >
-            { landingPage ? '' : 'Annie Gallos' }
+            { landingPage ? '' : 'Dogratr' }
           </Link>
           { sub600 ? <></> : renderLinks() }
           { sub600 ? <MenuDots handleClick={handleDotClick} /> : <></> }

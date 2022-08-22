@@ -1,5 +1,5 @@
-@use "../abstracts/vars";
-@use "../abstracts/mixins";
+@use '../abstracts/vars';
+@use '../abstracts/mixins';
 
 /* lobster-regular - latin */
 @font-face {
@@ -64,11 +64,6 @@ a {
   font-weight: bold;
 }
 @include mixins.anchor-colors (light);
-// a:link { color: #1c1c1c; }
-// a:visited { color: #202f46; }
-// a:hover { color: #242424; }
-// a:active { color: #333333; }
-// a:focus { color: #242424; }
 
 #root {
   display: flex;
@@ -85,7 +80,6 @@ a {
 
 .go-back-arrow {
   height: 2rem;
-  // width: 2.2rem;
   display: inline-flex;
   justify-content: flex-start;
   align-items: center;
@@ -98,7 +92,6 @@ a {
     font-size: 1.4rem;
     line-height: 1.4rem;
     margin-top: 0.4rem;
-    // margin-left: 0.1rem;
   }
 
   svg {
@@ -107,6 +100,21 @@ a {
     width: unset;
     height: 70%;
     flex: 0 0 2.2rem;
-    // top: -0.2rem;
   }
+}
+
+.page-content {
+  display: flex;
+  position: relative;
+  width: 100%;
+  // top: vars.$topnav-height;
+  // left: vars.$sidenav-width;
+}
+
+.route-content {
+  position: absolute;
+  top: vars.$topnav-height;
+  left: vars.$sidenav-width;
+  width: calc(100vw - #{vars.$sidenav-width});
+  min-height: calc(100vh - #{vars.$topnav-height});
 }

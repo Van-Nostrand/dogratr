@@ -1,19 +1,20 @@
-@use "../abstracts/vars";
-@use "../abstracts/mixins";
+@use '@/scss/abstracts/vars';
+@use '@/scss/abstracts/mixins';
 @use 'sass:math';
 
 .navbar {
-  position: sticky;
+  flex: 0 0 auto;
+  position: fixed;
   top: 0;
   left: 0;
+  height: 100vh;
+  width: vars.$sidenav-width;
   display: flex;
   flex-flow: column;
   justify-content: space-between;
-  height: 100vh;
-  width: vars.$sidenav-width;
-  font-size: 4rem;
   background-color: vars.$color-nav-background;
-  z-index: 1;
+  font-size: 4rem;
+  z-index: 50;
 
   @include mixins.respond(phone) {
     top: 0;

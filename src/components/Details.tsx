@@ -4,7 +4,7 @@ import React, {
   useState
 } from 'react'
 import { useParams } from 'react-router-dom'
-import Image from '@/components/Image'
+import Image from '@/components/CloudinaryImage'
 import { ART_DATA } from '@/constants/CONSTANTS'
 import useWindowSize from '@/functions/useWindowSize'
 import GoBackArrow from '@/components/GoBackArrow'

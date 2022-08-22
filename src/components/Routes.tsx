@@ -5,10 +5,11 @@ import {
   useLocation
 } from 'react-router-dom'
 
-import About from '@/components/About'
-import Details from './Details'
-import Contact from './Contact'
-import ImageGallery from './ImageGallery'
+// import About from '@/components/About'
+// import Details from './Details'
+// import Contact from './Contact'
+// import ImageGallery from './ImageGallery'
+import Ratr from '@/components/Ratr'
 import LandingPage from './LandingPage'
 
 const SCROLL_TOP_EXCEPTIONS = [
@@ -30,10 +31,11 @@ export default function App () {
   return (
     <Routes>
       <Route index element={<LandingPage />} />
-      <Route path='/about' element={<About />} />
-      <Route path='/works' element={<ImageGallery />} />
+      <Route path='/ratr' element={<Ratr />} />
+      {/* <Route path='/about' element={<About />} /> */}
+      {/* <Route path='/works' element={<ImageGallery />} />
       <Route path='/contact' element={<Contact />} />
-      <Route path='/details/:name' element={<Details />} />
+      <Route path='/details/:name' element={<Details />} /> */}
     </Routes>
   )
 }

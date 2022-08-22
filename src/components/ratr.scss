@@ -1,0 +1,58 @@
+@use '@/scss/abstracts/vars';
+@use '@/scss/abstracts/mixins';
+
+.ratr-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  .the-ratr {
+    &__buttons {
+      margin: 4px 0;
+      display: flex;
+      column-gap: 8px;
+
+      button {
+        border: none;
+        background-color: vars.$medium-grey;
+        width: 30px;
+        height: 20px;
+        border-radius: 4px;
+        color: vars.$eggshl;
+        position: relative;
+        transform: translateY(4px);
+
+        &::after {
+          @include mixins.standard-before-after;
+          border-radius: 4px;
+          box-shadow: 0 4px 1px 2px vars.$colour-soft-border;
+          opacity: 0;
+        }
+
+        &::before {
+          @include mixins.standard-before-after;
+          opacity: 0;
+          border-radius: 4px;
+          border: 1px solid vars.$colour-soft-border;
+        }
+
+        &:hover {
+          transform: translateY(0);
+
+          &::after { opacity: 1; }
+        }
+
+        &:active {
+          transform: translateY(4px);
+
+          &::after, &::before {
+            opacity: 1;
+            transform: translateY(-4px);
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+@use '@/scss/abstracts/vars';
+
+.top-nav {
+  flex: 0 0 auto;
+  display: flex;
+  position: fixed;
+  width: calc(100vw - #{vars.$sidenav-width} - 1px);
+  top: 0;
+  left: vars.$sidenav-width;
+  height: vars.$topnav-height;
+  background-color: vars.$color-nav-background;
+  z-index: 50;
+}
