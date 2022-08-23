@@ -1,6 +1,7 @@
 export interface IHistory {
   src: string;
   id: string;
+  value: number;
 }
 
 export interface IRootStore {

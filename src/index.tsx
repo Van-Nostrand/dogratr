@@ -5,7 +5,8 @@ import Routes from '@/components/Routes'
 // import Navbar from '@/components/Navbar'
 import TopNav from '@/components/TopNav'
 import '@/scss/main.scss'
-import store from '@/store'
+import { store, persistor } from '@/store'
+import { PersistGate } from 'redux-persist/integration/react'
 import { Provider } from 'react-redux'
 
 const root = createRoot(document.getElementById('root'))
@@ -13,15 +14,17 @@ const root = createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <div className="page-content">
-          {/* <Navbar /> */}
-          <TopNav />
-          <div className="route-content">
-            <Routes />
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter>
+          <div className="page-content">
+            {/* <Navbar /> */}
+            <TopNav />
+            <div className="route-content">
+              <Routes />
+            </div>
           </div>
-        </div>
-      </BrowserRouter>
+        </BrowserRouter>
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 )
