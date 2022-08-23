@@ -105,6 +105,7 @@ a {
 
 .page-content {
   display: flex;
+  flex-direction: column;
   position: relative;
   width: 100%;
   // top: vars.$topnav-height;
@@ -112,9 +113,10 @@ a {
 }
 
 .route-content {
-  position: absolute;
+  position: relative;
   top: vars.$topnav-height;
-  left: vars.$sidenav-width;
-  width: calc(100vw - #{vars.$sidenav-width});
+  // left: vars.$sidenav-width;
+  // width: calc(100vw - #{vars.$sidenav-width});
+  width: 100%;
   min-height: calc(100vh - #{vars.$topnav-height});
 }

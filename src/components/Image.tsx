@@ -1,31 +1,33 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import React, { RefObject } from 'react'
+// import axios from 'axios'
 import './image.scss'
 
 interface ImageProps {
   src: string;
   alt?: string;
+  ref: RefObject<HTMLDivElement>;
 }
 
-export default function Image ({ src, alt }: ImageProps) {
+export default function Image ({ src, alt, ref }: ImageProps) {
 
-  const [imageSrc, setImageSrc] = useState<string>('')
+  // const [imageSrc, setImageSrc] = useState<string>('')
 
-  useEffect(() => {
-    axios.get(src).then((res) => {
-      console.log('result is ', res.data.message)
-      setImageSrc(res.data.message)
-    })
-  }, [])
+  // useEffect(() => {
+  //   axios.get(src).then((res) => {
+  //     console.log('result is ', res.data.message)
+  //     setImageSrc(res.data.message)
+  //   })
+  // }, [])
 
   return (
     <div
+      ref={ref}
       className="img"
     >
       <img
         className="img__img"
         alt={alt}
-        src={imageSrc}
+        src={src}
       />
       <div
         className="img__placeholder"
