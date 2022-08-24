@@ -2,7 +2,6 @@ import * as React from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import Routes from '@/components/Routes'
-// import Navbar from '@/components/Navbar'
 import TopNav from '@/components/TopNav'
 import '@/scss/main.scss'
 import { store, persistor } from '@/store'
@@ -17,7 +16,6 @@ root.render(
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
           <div className="page-content">
-            {/* <Navbar /> */}
             <TopNav />
             <div className="route-content">
               <Routes />

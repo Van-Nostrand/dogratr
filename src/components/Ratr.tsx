@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
-import FadeInOutImage from '@/components/FadeInOutImage'
+// import FadeInOutImage from '@/components/FadeInOutImage'
+import CardStack from '@/components/card-stack'
 import { addRating } from '@/store/rating/ratingSlice'
 import { IRootStore } from '@/store/types'
 import './ratr.scss'
@@ -13,7 +14,7 @@ export default function Ratr () {
   const dispatch = useDispatch()
 
   const [imageSrc, setImageSrc] = useState<string>('')
-  const [imageFaded, setImageFaded] = useState<boolean>(false)
+  // const [imageFaded, setImageFaded] = useState<boolean>(false)
 
   useEffect(() => {
     getNewImage()
@@ -56,11 +57,12 @@ export default function Ratr () {
     <div className="ratr-page">
       RATR!
       <div className="the-ratr">
-        <FadeInOutImage
+        {/* <FadeInOutImage
           imageFaded={imageFaded}
           setImageFaded={setImageFaded}
           src={imageSrc}
-        />
+        /> */}
+        <CardStack />
         <div className="the-ratr__buttons">{ renderRatingButtons() }</div>
       </div>
       <div className="rating-history">

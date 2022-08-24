@@ -1,0 +1,15 @@
+@use '@/scss/abstracts/mixins';
+
+.card-stack {
+  position: relative;
+}
+
+.pup-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 380px;
+  height: 420px;
+  border-radius: 15px;
+  @include mixins.soft-border;
+}
