@@ -11,5 +11,7 @@
   width: 380px;
   height: 420px;
   border-radius: 15px;
+  transform-origin: 50% 50%;
+  background-color: grey;
   @include mixins.soft-border;
 }
