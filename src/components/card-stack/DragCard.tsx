@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 
-export default function Card () {
+export default function DragCard () {
   const cardRef = useRef(null)
   const [posX, setPosX] = useState<number>(0)
   const [posY, setPosY] = useState<number>(0)
@@ -11,10 +11,8 @@ export default function Card () {
   const handleMouseDown = (e: any) => {
     if (e.target === cardRef.current) {
       setGrabbed(true)
-      setPosX(0)
-      setPosY(0)
-      setStartX(e.clientX)
-      setStartY(e.clientY)
+      setStartX(e.clientX - posX)
+      setStartY(e.clientY - posY)
     }
   }
 
@@ -22,6 +20,7 @@ export default function Card () {
     if (!grabbed) return
     const newX = e.clientX - startX
     const newY = e.clientY - startY
+
     setPosX(newX)
     setPosY(newY)
     setCardTransform()
@@ -29,10 +28,6 @@ export default function Card () {
 
   const handleMouseUp = () => {
     setGrabbed(false)
-    setPosX(0)
-    setPosY(0)
-    setStartX(0)
-    setStartY(0)
   }
 
   const setCardTransform = () => {
@@ -48,7 +43,7 @@ export default function Card () {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseUp}
     >
-      CARD
+      <div>CARD</div>
     </div>
   )
 }

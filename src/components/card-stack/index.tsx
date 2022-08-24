@@ -1,5 +1,5 @@
 import React from 'react'
-// import Card from './Card'
+// import DragCard from './DragCard'
 import DragAndRotateCard from './DragAndRotateCard'
 import './card-stack.scss'
 
@@ -8,6 +8,7 @@ export default function CardStack () {
     <div className="card-stack">
       <div>CARD STACK</div>
       <DragAndRotateCard />
+      {/* <DragCard /> */}
     </div>
   )
 }

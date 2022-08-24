@@ -16,23 +16,28 @@ export default function DragAndRotateCard () {
   const ORIGIN_Y_BUFFER = 500
 
   useEffect(() => {
-    const { x, y } = cardRef.current.getBoundingClientRect()
+    const { x, y } = getRectXY()
     setCardX(x)
     setCardY(y)
     setOrigin([x, y + ORIGIN_Y_BUFFER])
   }, [])
 
+  const getRectXY = () => {
+    const { x, y } = cardRef.current.getBoundingClientRect()
+    return { x, y }
+  }
+
   const handleMouseDown = (e: any) => {
     if (e.target === cardRef.current) {
       setGrabbed(true)
-      setStartX(e.clientX)
-      setStartY(e.clientY)
+      setStartX(e.clientX - posX)
+      setStartY(e.clientY - posY)
     }
   }
 
   const handleMouseMove = (e: any) => {
     if (!grabbed) return
-    const { x, y } = cardRef.current.getBoundingClientRect()
+    const { x, y } = getRectXY()
     const newX = e.clientX - startX
     const newY = e.clientY - startY
     setPosX(newX)
@@ -56,8 +61,6 @@ export default function DragAndRotateCard () {
 
   const handleMouseUp = () => {
     setGrabbed(false)
-    setStartX(0)
-    setStartY(0)
   }
 
   const setCardTransform = () => {
@@ -73,7 +76,7 @@ export default function DragAndRotateCard () {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseUp}
     >
-      CARD
+      <div>CARD</div>
     </div>
   )
 }
