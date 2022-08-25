@@ -1,7 +1,15 @@
 import React, { useRef, useEffect, useState } from 'react'
+import useWindowSize from '@/hooks/useWindowSize'
 
-export default function DragAndRotateCard () {
-  const cardRef = useRef(null)
+interface DragAndRotateCardProps {
+  children?: any;
+  innerRef?: any;
+}
+
+export default function DragAndRotateCard ({ children, innerRef }: DragAndRotateCardProps) {
+  const { windowWidth, windowHeight } = useWindowSize()
+
+  const cardRef = innerRef ? innerRef : useRef(null)
   const [posX, setPosX] = useState<number>(0)
   const [posY, setPosY] = useState<number>(0)
   const [startX, setStartX] = useState<number>(0)
@@ -16,28 +24,39 @@ export default function DragAndRotateCard () {
   const ORIGIN_Y_BUFFER = 500
 
   useEffect(() => {
-    const { x, y } = getRectXY()
+    centerCardInScreen()
+  }, [])
+
+  useEffect(() => {
+    centerCardInScreen()
+  }, [windowWidth, windowHeight])
+
+  // const getRef = () => innerRef ? innerRef : cardRef
+
+  const centerCardInScreen = () => {
+    const { innerWidth } = window
+    const { x, y, width } = getRekt()
     setCardX(x)
     setCardY(y)
     setOrigin([x, y + ORIGIN_Y_BUFFER])
-  }, [])
+    // set the card in the middle of the screen
+    cardRef.current.style.left = `${(innerWidth / 2) - (width / 2)}px`
+  }
 
-  const getRectXY = () => {
-    const { x, y } = cardRef.current.getBoundingClientRect()
-    return { x, y }
+  // bruh
+  const getRekt = () => {
+    return cardRef.current.getBoundingClientRect()
   }
 
   const handleMouseDown = (e: any) => {
-    if (e.target === cardRef.current) {
-      setGrabbed(true)
-      setStartX(e.clientX - posX)
-      setStartY(e.clientY - posY)
-    }
+    setGrabbed(true)
+    setStartX(e.clientX - posX)
+    setStartY(e.clientY - posY)
   }
 
   const handleMouseMove = (e: any) => {
     if (!grabbed) return
-    const { x, y } = getRectXY()
+    const { x, y } = getRekt()
     const newX = e.clientX - startX
     const newY = e.clientY - startY
     setPosX(newX)
@@ -76,7 +95,7 @@ export default function DragAndRotateCard () {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseUp}
     >
-      <div>CARD</div>
+      { children }
     </div>
   )
 }

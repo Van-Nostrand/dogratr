@@ -6,7 +6,7 @@ import React, {
 import { useParams } from 'react-router-dom'
 import Image from '@/components/CloudinaryImage'
 import { ART_DATA } from '@/constants/CONSTANTS'
-import useWindowSize from '@/functions/useWindowSize'
+import useWindowSize from '@/hooks/useWindowSize'
 import GoBackArrow from '@/components/GoBackArrow'
 import '@/scss/components/detailScreen.scss'
 
@@ -14,7 +14,7 @@ export default function Details () {
   const EmailLogo = require('@/assets/emailLogo.svg')
   const imageRef = useRef(null)
   const placeholderRef = useRef(null)
-  const windowSize = useWindowSize()
+  const { windowWidth } = useWindowSize()
   const [loaded, setLoaded] = useState<boolean>(false)
   const { name } = useParams()
 
@@ -28,7 +28,7 @@ export default function Details () {
     }
   }, [loaded])
 
-  const isMobile = windowSize.width < 600
+  const isMobile = windowWidth < 600
   const theImage = ART_DATA.find(art => art.name.toLowerCase().replace(/( )/gi, '+') === name)
   const imageHeight = Math.floor(Math.max(window.innerHeight * 0.85, 520))
   const emailString = `mailto:example@email.com?subject=Inquiry: ${theImage.name}`

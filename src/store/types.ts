@@ -1,3 +1,5 @@
+import { IPupperState } from '@/store/pupper/pupperSlice'
+
 export interface IHistory {
   src: string;
   id: string;
@@ -10,5 +12,6 @@ export interface IRootStore {
   },
   rating: {
     history: IHistory[] | []
-  }
+  },
+  pupper: IPupperState
 }

@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
-import useWindowSize from '@/functions/useWindowSize'
+import useWindowSize from '@/hooks/useWindowSize'
 import MenuDots from '@/components/MenuDots'
 import './navbar.scss'
 
 export default function Navbar () {
   const current = useLocation()
-  const windowSize = useWindowSize()
-  const sub600 = windowSize.width < 600
+  const { windowWidth } = useWindowSize()
+  const sub600 = windowWidth < 600
 
   const [landingPage, setLandingPage] = useState<boolean>(true)
   const [openDrawer, setOpenDrawer] = useState<boolean>(false)

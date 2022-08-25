@@ -1,7 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export default function GoBackArrow (props) {
+interface GoBackArrowProps {
+  to: string;
+}
+
+export default function GoBackArrow (props: GoBackArrowProps) {
   return (
     <Link
       className="go-back-arrow"

@@ -9,16 +9,6 @@ interface IRatingState {
   history: IHistory[] | [];
 }
 
-// interface IRatingSlice {
-//   name: string;
-//   initialState: {
-//     history: IHistory[] | [];
-//   },
-//   reducers: {
-//     addRating: (state: IRatingState, action: IAction) => void;
-//   }
-// }
-
 export const ratingSlice = createSlice({
   name: 'rating',
   initialState: {

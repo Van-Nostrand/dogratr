@@ -1,27 +1,40 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import axios from 'axios'
-// import FadeInOutImage from '@/components/FadeInOutImage'
 import CardStack from '@/components/card-stack'
 import { addRating } from '@/store/rating/ratingSlice'
+import { cyclePuppers } from '@/store/pupper/pupperSlice'
 import { IRootStore } from '@/store/types'
 import './ratr.scss'
 
-const API = 'https://dog.ceo/api/breeds/image/random'
+// const API = 'https://dog.ceo/api/breeds/image/random'
 
 export default function Ratr () {
   const history = useSelector((state: IRootStore) => state.rating.history)
   const dispatch = useDispatch()
 
   const [imageSrc, setImageSrc] = useState<string>('')
+  const [cardNumber, setCardNumber] = useState<number>(1)
   // const [imageFaded, setImageFaded] = useState<boolean>(false)
 
+  // useEffect(() => {
+  //   getNewImage()
+  // }, [])
+
   useEffect(() => {
-    getNewImage()
+    // setImageSrc(`imagesrc${(Math.random() + 1) * Math.random()}`)
+    offlineSetNewImage()
   }, [])
 
-  const getNewImage = () => {
-    axios.get(API).then((res) => setImageSrc(res.data.message))
+  const offlineSetNewImage = () => {
+    setImageSrc(offline_randomImageSrc())
+  }
+
+  // const getNewImage = () => {
+  //   axios.get(API).then((res) => setImageSrc(res.data.message))
+  // }
+
+  const offline_randomImageSrc = () => {
+    return `imagesrc${(Math.random() + 1) * Math.random()}`
   }
 
   const handleRating = (i: number) => {
@@ -30,7 +43,10 @@ export default function Ratr () {
       id: `${Math.random()}`.split('.')[1],
       value: i
     }))
-    getNewImage()
+    setCardNumber(cardNumber + 1)
+    // getNewImage()
+    dispatch(cyclePuppers())
+    offlineSetNewImage()
   }
 
   const renderRatingButtons = () => {
@@ -53,17 +69,27 @@ export default function Ratr () {
     ))
   }
 
+  const cardInfo = [{
+    src: imageSrc,
+    name: `Card No. ${cardNumber}`
+  }, {
+    src: offline_randomImageSrc(),
+    name: `Card No. ${cardNumber + 1}`
+  }]
+
   return (
     <div className="ratr-page">
       RATR!
       <div className="the-ratr">
-        {/* <FadeInOutImage
-          imageFaded={imageFaded}
-          setImageFaded={setImageFaded}
-          src={imageSrc}
-        /> */}
-        <CardStack />
-        <div className="the-ratr__buttons">{ renderRatingButtons() }</div>
+        <CardStack cardInfo={cardInfo}>
+          {/* <RandomPlaceholder
+            minWidth={300}
+            maxWidth={350}
+            minHeight={400}
+            maxHeight={450}
+          /> */}
+          <div className="the-ratr__buttons">{ renderRatingButtons() }</div>
+        </CardStack>
       </div>
       <div className="rating-history">
         { renderHistory() }
