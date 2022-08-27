@@ -11,6 +11,7 @@ import {
 // import ImageGallery from './ImageGallery'
 import Ratr from '@/components/Ratr'
 import LandingPage from './LandingPage'
+import ThreeDTransformTest from '@/components/card-stack/ThreeDTransformTest'
 
 const SCROLL_TOP_EXCEPTIONS = [
   '/works'
@@ -32,6 +33,7 @@ export default function App () {
     <Routes>
       <Route index element={<LandingPage />} />
       <Route path='/ratr' element={<Ratr />} />
+      <Route path='/test' element={<ThreeDTransformTest />} />
       {/* <Route path='/about' element={<About />} /> */}
       {/* <Route path='/works' element={<ImageGallery />} />
       <Route path='/contact' element={<Contact />} />

@@ -2,10 +2,12 @@ import React, { useRef, useState } from 'react'
 
 interface DragCardProps {
   children?: any;
+  innerRef?: any;
+  innerStyle?: any;
 }
 
-export default function DragCard ({ children }: DragCardProps) {
-  const cardRef = useRef(null)
+export default function DragCard ({ children, innerRef, innerStyle }: DragCardProps) {
+  const cardRef = innerRef ? innerRef : useRef(null)
   const [posX, setPosX] = useState<number>(0)
   const [posY, setPosY] = useState<number>(0)
   const [startX, setStartX] = useState<number>(0)
@@ -44,6 +46,7 @@ export default function DragCard ({ children }: DragCardProps) {
       onMouseUp={handleMouseUp}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseUp}
+      style={innerStyle ? innerStyle : {}}
     >
       { children }
     </div>

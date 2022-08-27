@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import CardStack from '@/components/card-stack'
+// import ThreeDTransformTest from '@/components/card-stack/ThreeDTransformTest'
 import { addRating } from '@/store/rating/ratingSlice'
 import { cyclePuppers } from '@/store/pupper/pupperSlice'
 import { IRootStore } from '@/store/types'

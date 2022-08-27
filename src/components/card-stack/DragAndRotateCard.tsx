@@ -31,8 +31,6 @@ export default function DragAndRotateCard ({ children, innerRef }: DragAndRotate
     centerCardInScreen()
   }, [windowWidth, windowHeight])
 
-  // const getRef = () => innerRef ? innerRef : cardRef
-
   const centerCardInScreen = () => {
     const { innerWidth } = window
     const { x, y, width } = getRekt()
@@ -64,7 +62,7 @@ export default function DragAndRotateCard ({ children, innerRef }: DragAndRotate
     setCardX(x)
     setCardY(y)
     setRotation(getRotation())
-    setCardTransform()
+    updateCardPosition()
   }
 
   const getRotation = () => {
@@ -82,7 +80,7 @@ export default function DragAndRotateCard ({ children, innerRef }: DragAndRotate
     setGrabbed(false)
   }
 
-  const setCardTransform = () => {
+  const updateCardPosition = () => {
     cardRef.current.style.transform = `translate(${posX}px, ${posY}px) rotate(${rotation})`
   }
 
