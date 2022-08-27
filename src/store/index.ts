@@ -9,7 +9,7 @@ import thunk from 'redux-thunk'
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['counter']
+  whitelist: ['counter', 'rating']
 }
 
 const reducers = combineReducers({

@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import generateRandom from '@/functions/generateRandom'
 
 interface IPupImage {
   src: string;
@@ -7,6 +8,7 @@ interface IPupImage {
 export interface IPup {
   id: string;
   name: string;
+  bio: string;
   images: IPupImage[]
 }
 
@@ -25,10 +27,22 @@ export const pupperSlice = createSlice({
     },
     cyclePuppers: (state: IPupperState) => {
       state.pups = state.pups.slice(1)
+    },
+    seedDB: (state: IPupperState) => {
+      const newPups = []
+      for (let i = 0; i < 10; i++) {
+        newPups.push({
+          id: `${generateRandom()}`.split('.')[1],
+          name: `Card ${i + 1}`,
+          images: [{ src: `puppersrc${generateRandom()}` }],
+          bio: 'bio here'
+        })
+      }
+      state.pups = newPups
     }
   }
 })
 
-export const { createPupper, cyclePuppers } = pupperSlice.actions
+export const { createPupper, cyclePuppers, seedDB } = pupperSlice.actions
 
 export default pupperSlice.reducer

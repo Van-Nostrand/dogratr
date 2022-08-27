@@ -4,12 +4,10 @@ import {
   Route,
   useLocation
 } from 'react-router-dom'
-
-// import About from '@/components/About'
-// import Details from './Details'
-// import Contact from './Contact'
-// import ImageGallery from './ImageGallery'
-import Ratr from '@/components/Ratr'
+import { useDispatch } from 'react-redux'
+import { seedDB } from '@/store/pupper/pupperSlice'
+import Account from '@/pages/Account'
+import Ratr from '@/pages/Ratr'
 import LandingPage from './LandingPage'
 import ThreeDTransformTest from '@/components/card-stack/ThreeDTransformTest'
 
@@ -19,6 +17,12 @@ const SCROLL_TOP_EXCEPTIONS = [
 
 export default function App () {
   const location = useLocation()
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(seedDB())
+  }, [])
+
   useEffect(() => {
     if (!SCROLL_TOP_EXCEPTIONS.includes(location.pathname)) {
       window.scrollTo({
@@ -34,10 +38,7 @@ export default function App () {
       <Route index element={<LandingPage />} />
       <Route path='/ratr' element={<Ratr />} />
       <Route path='/test' element={<ThreeDTransformTest />} />
-      {/* <Route path='/about' element={<About />} /> */}
-      {/* <Route path='/works' element={<ImageGallery />} />
-      <Route path='/contact' element={<Contact />} />
-      <Route path='/details/:name' element={<Details />} /> */}
+      <Route path='/account' element={<Account />} />
     </Routes>
   )
 }

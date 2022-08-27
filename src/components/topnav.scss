@@ -12,4 +12,17 @@
   height: vars.$topnav-height;
   background-color: vars.$color-nav-background;
   z-index: 50;
+  color: vars.$eggshl;
+  font-size: 2.6rem;
+  div:nth-of-type(1) { padding: 0.3rem 0 0 0.6rem; }
+  div:nth-of-type(2) { padding: 0.3rem 0 0 0; }
+
+  &__links {
+    margin: 0 1.5rem;
+
+    a { margin: 0 0.3rem; }
+    a:nth-of-type(1) { color: vars.$color-navy; }
+    a:nth-of-type(2) { color: vars.$color-primary; }
+    a:nth-of-type(3) { color: vars.$color-deep-orange; }
+  }
 }

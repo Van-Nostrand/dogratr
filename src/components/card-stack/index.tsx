@@ -134,7 +134,6 @@ export default function CardStack ({ children }: CardStackProps) {
     // do some animation here
     if (pupsInit) {
       animateCards()
-      // setCardInFront(!cardInFront)
     }
   }, [pups])
 
