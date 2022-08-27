@@ -4,9 +4,10 @@ import useWindowSize from '@/hooks/useWindowSize'
 interface DragAndRotateCardProps {
   children?: any;
   innerRef?: any;
+  className?: string;
 }
 
-export default function DragAndRotateCard ({ children, innerRef }: DragAndRotateCardProps) {
+export default function DragAndRotateCard ({ children, innerRef, className }: DragAndRotateCardProps) {
   const { windowWidth, windowHeight } = useWindowSize()
 
   const cardRef = innerRef ? innerRef : useRef(null)
@@ -81,13 +82,16 @@ export default function DragAndRotateCard ({ children, innerRef }: DragAndRotate
   }
 
   const updateCardPosition = () => {
+    console.log('UPDATE CARD POSITION')
     cardRef.current.style.transform = `translate(${posX}px, ${posY}px) rotate(${rotation})`
   }
+
+  const classList = ['pup-card', className ? className : ''].join(' ')
 
   return (
     <div
       ref={cardRef}
-      className="pup-card"
+      className={classList}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onMouseMove={handleMouseMove}
