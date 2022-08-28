@@ -6,14 +6,8 @@ import DragAndRotateCard from './DragAndRotateCard'
 import { IRootStore } from '@/store/types'
 import './card-stack.scss'
 
-interface ICard {
-  name: string;
-  src: string;
-}
-
 interface CardStackProps {
   children?: any;
-  cardInfo?: ICard[];
 }
 
 interface IKeyframe {
@@ -70,7 +64,7 @@ export default function CardStack ({ children }: CardStackProps) {
     const zt = new Array(p.length).fill(null).map((_, i) => i * (100 / p.length))
     const sinPath = generatePath(sinSquare)
 
-    // generate keyframes
+    // generate "wrap around" animation keyframes
     const numSteps = Math.min(p.length, sinPath.length)
     const kf: TKeyframes = []
 
@@ -83,7 +77,7 @@ export default function CardStack ({ children }: CardStackProps) {
       }
     }
 
-    // generate zframes
+    // generate keyframes that only animate z
     const zf = [...zt].reverse().reduce((acc, cur, i) => {
       acc.push({
         transform: `perspective(500px) translate3D(0px, 0px, -${cur}px)`,
@@ -100,7 +94,7 @@ export default function CardStack ({ children }: CardStackProps) {
   const animationOptions = {
     duration: 250,
     easing: 'ease-in-out',
-    fill: 'both'
+    fill: 'forwards'
   }
 
   const inverseParab = (x: number) => (SQ_CO_1 * x**2) + (SQ_CO_2*x)
@@ -140,13 +134,15 @@ export default function CardStack ({ children }: CardStackProps) {
   const animateCards = async () => {
     console.log('zframes?', zFrames, 'keyframes?', wrapKeyframes)
 
-    const anim = card1Ref.current.animate(cardInFront ? wrapKeyframes : zFrames, animationOptions).commitStyles()
-    const anim2 = card2Ref.current.animate(cardInFront ? zFrames : wrapKeyframes, animationOptions).commitStyles()
-
-    Promise.all([anim.finished, anim2.finished]).then((what:any) => console.log('what is what', what))
-    await anim.finished
-    await anim2.finished
-    setCardInFront(!cardInFront)
+    const anim = card1Ref.current.animate(cardInFront ? wrapKeyframes : zFrames, animationOptions)
+    const anim2 = card2Ref.current.animate(cardInFront ? zFrames : wrapKeyframes, animationOptions)
+    // card1Ref.current.animate(cardInFront ? wrapKeyframes : zFrames, animationOptions)
+    // card2Ref.current.animate(cardInFront ? zFrames : wrapKeyframes, animationOptions)
+    Promise.all([anim.finished, anim2.finished]).then(() => setCardInFront(!cardInFront))
+    // Promise.all([anim.finished, anim2.finished]).then((what:any) => console.log('what is what', what))
+    // await anim.finished
+    // await anim2.finished
+    // setCardInFront(!cardInFront)
   }
 
   const renderInnerCard = (name: string) => (
@@ -171,24 +167,28 @@ export default function CardStack ({ children }: CardStackProps) {
 
   const thereArePups = pups.length > 0 && topPup && nextPup
 
+  const renderWrappedCards = () => {
+    const arr = [(
+      <WrappedCard key="wrapped-2" ref={card2Ref} className="card1">
+        { renderInnerCard(nextPup.name) }
+        { children }
+      </WrappedCard>
+    ), (
+      <WrappedCard key="wrapped-1" ref={card1Ref} className="card2">
+        { renderInnerCard(topPup.name) }
+        { children }
+      </WrappedCard>
+    )]
+    return cardInFront ? arr : arr.reverse()
+  }
+
   return (
     <div className="card-stack">
       <div>CARD STACK</div>
 
       { thereArePups
-        ? (
-          <>
-            <WrappedCard ref={card2Ref} className="card1">
-              { renderInnerCard(nextPup.name) }
-              { children }
-            </WrappedCard>
-
-            <WrappedCard ref={card1Ref} className="card2">
-              { renderInnerCard(topPup.name) }
-              { children }
-            </WrappedCard>
-          </>
-        ) : <div>LOADING</div>
+        ? renderWrappedCards()
+        : <div>LOADING</div>
       }
     </div>
   )

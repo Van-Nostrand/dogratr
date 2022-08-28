@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import RandomPlaceholder from '@/components/RandomPlaceholder'
-// import CardStack from '@/components/card-stack'
+// import RandomPlaceholder from '@/components/RandomPlaceholder'
+import CardStack from '@/components/card-stack'
 // import ThreeDTransformTest from '@/components/card-stack/ThreeDTransformTest'
 import { addRating } from '@/store/rating/ratingSlice'
 import { cyclePuppers } from '@/store/pupper/pupperSlice'
@@ -71,49 +71,41 @@ export default function Ratr () {
     ))
   }
 
-  // const cardInfo = [{
-  //   src: imageSrc,
-  //   name: `Card No. ${cardNumber}`
-  // }, {
-  //   src: offline_randomImageSrc(),
-  //   name: `Card No. ${cardNumber + 1}`
-  // }]
-
   // TESTING cardstack
-  // return (
-  //   <div className="ratr-page">
-  //     RATR!
-  //     <div className="the-ratr">
-  //       <CardStack cardInfo={cardInfo}>
-  //         {/* <RandomPlaceholder
-  //           minWidth={300}
-  //           maxWidth={350}
-  //           minHeight={400}
-  //           maxHeight={450}
-  //         /> */}
-  //         <div className="the-ratr__buttons">{ renderRatingButtons() }</div>
-  //       </CardStack>
-  //     </div>
-  //     <div className="rating-history">
-  //       { renderHistory() }
-  //     </div>
-  //   </div>
-  // )
   return (
     <div className="ratr-page">
       RATR!
       <div className="the-ratr">
-        <RandomPlaceholder
-          minWidth={300}
-          maxWidth={350}
-          minHeight={400}
-          maxHeight={450}
-        />
-        <div className="the-ratr__buttons">{ renderRatingButtons() }</div>
+        <CardStack>
+          {/* <RandomPlaceholder
+            minWidth={300}
+            maxWidth={350}
+            minHeight={400}
+            maxHeight={450}
+          /> */}
+          <div className="the-ratr__buttons">{ renderRatingButtons() }</div>
+        </CardStack>
       </div>
       <div className="rating-history">
         { renderHistory() }
       </div>
     </div>
   )
+  // return (
+  //   <div className="ratr-page">
+  //     RATR!
+  //     <div className="the-ratr">
+  //       <RandomPlaceholder
+  //         minWidth={300}
+  //         maxWidth={350}
+  //         minHeight={400}
+  //         maxHeight={450}
+  //       />
+  //       <div className="the-ratr__buttons">{ renderRatingButtons() }</div>
+  //     </div>
+  //     <div className="rating-history">
+  //       { renderHistory() }
+  //     </div>
+  //   </div>
+  // )
 }
