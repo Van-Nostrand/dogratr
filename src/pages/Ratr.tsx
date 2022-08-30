@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, {
+  useEffect,
+  useState
+} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-// import RandomPlaceholder from '@/components/RandomPlaceholder'
 import CardStack from '@/components/card-stack'
-// import ThreeDTransformTest from '@/components/card-stack/ThreeDTransformTest'
 import { addRating } from '@/store/rating/ratingSlice'
 import { cyclePuppers } from '@/store/pupper/pupperSlice'
 import { IRootStore } from '@/store/types'
@@ -13,10 +14,12 @@ import './ratr.scss'
 export default function Ratr () {
   const history = useSelector((state: IRootStore) => state.rating.history)
   const dispatch = useDispatch()
+  // const animationRef = useRef(null)
 
+  const [animationToggle, setAnimationToggle] = useState<boolean>(false)
   const [imageSrc, setImageSrc] = useState<string>('')
   const [cardNumber, setCardNumber] = useState<number>(1)
-  // const [imageFaded, setImageFaded] = useState<boolean>(false)
+  // const [cardStackCB, setCardStackCB] = useState<any>()
 
   // useEffect(() => {
   //   getNewImage()
@@ -46,9 +49,9 @@ export default function Ratr () {
       value: i
     }))
     setCardNumber(cardNumber + 1)
-    // getNewImage()
     dispatch(cyclePuppers())
     offlineSetNewImage()
+    setAnimationToggle(!animationToggle)
   }
 
   const renderRatingButtons = () => {
@@ -70,42 +73,32 @@ export default function Ratr () {
       </div>
     ))
   }
+  // interface WrappedStackProps {
+  //   children: any;
+  //   animationRef: any;
+  // }
 
-  // TESTING cardstack
+  // const WrappedStack = forwardRef<HTMLDivElement, WrappedStackProps>(({ children }, ref) => {
+  //   return (
+  //     <CardStack>
+  //       { children }
+  //     </CardStack>
+  //   )
+  // })
+
   return (
     <div className="ratr-page">
       RATR!
       <div className="the-ratr">
-        <CardStack>
-          {/* <RandomPlaceholder
-            minWidth={300}
-            maxWidth={350}
-            minHeight={400}
-            maxHeight={450}
-          /> */}
+        {/* <WrappedStack animationRef={animationRef}> */}
+        <CardStack animationToggle={animationToggle}>
           <div className="the-ratr__buttons">{ renderRatingButtons() }</div>
         </CardStack>
+        {/* </WrappedStack> */}
       </div>
       <div className="rating-history">
         { renderHistory() }
       </div>
     </div>
   )
-  // return (
-  //   <div className="ratr-page">
-  //     RATR!
-  //     <div className="the-ratr">
-  //       <RandomPlaceholder
-  //         minWidth={300}
-  //         maxWidth={350}
-  //         minHeight={400}
-  //         maxHeight={450}
-  //       />
-  //       <div className="the-ratr__buttons">{ renderRatingButtons() }</div>
-  //     </div>
-  //     <div className="rating-history">
-  //       { renderHistory() }
-  //     </div>
-  //   </div>
-  // )
 }

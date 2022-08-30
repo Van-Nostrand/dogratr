@@ -1,12 +1,11 @@
 import * as React from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
-import Routes from '@/components/Routes'
-import TopNav from '@/components/TopNav'
-import '@/scss/main.scss'
-import { store, persistor } from '@/store'
 import { PersistGate } from 'redux-persist/integration/react'
 import { Provider } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom'
+import App from '@/App'
+import { store, persistor } from '@/store'
+import '@/scss/main.scss'
 
 const root = createRoot(document.getElementById('root'))
 
@@ -15,12 +14,7 @@ root.render(
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
-          <div className="page-content">
-            <TopNav />
-            <div className="route-content">
-              <Routes />
-            </div>
-          </div>
+          <App />
         </BrowserRouter>
       </PersistGate>
     </Provider>

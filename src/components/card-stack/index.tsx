@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useRef, forwardRef } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { createPupper, IPup } from '@/store/pupper/pupperSlice'
-// import ClickAndShuffleCard from './ClickAndShuffleCard'
+import { useSelector } from 'react-redux'
+import { IPup } from '@/store/pupper/pupperSlice'
 import DragAndRotateCard from './DragAndRotateCard'
 import { IRootStore } from '@/store/types'
 import './card-stack.scss'
 
 interface CardStackProps {
   children?: any;
+  animationToggle: boolean;
 }
 
 interface IKeyframe {
@@ -17,17 +17,18 @@ interface IKeyframe {
 
 type TKeyframes = Array<IKeyframe>
 
-export default function CardStack ({ children }: CardStackProps) {
-  const dispatch = useDispatch()
+// eslint-disable-next-line
+export default function CardStack ({ children, animationToggle }: CardStackProps) {
+  // const dispatch = useDispatch()
   const card1Ref = useRef(null)
   const card2Ref = useRef(null)
   const pups = useSelector((state: IRootStore) => state.pupper.pups)
-  const generateRandom = () => (Math.random() + 1) * Math.random()
+  // const generateRandom = () => (Math.random() + 1) * Math.random()
 
   const [topPup, setTopPup] = useState<IPup | undefined>()
   const [nextPup, setNextPup] = useState<IPup | undefined>()
   const [pupsInit, setPupsInit] = useState<boolean>(false)
-  const [cardInFront, setCardInFront] = useState<boolean>(true) // true is 1, false is 2
+  const [cardInFront, setCardInFront] = useState<boolean>(true) // true means card 1 is first
   const [wrapKeyframes, setWrapKeyframes] = useState<TKeyframes>([])
   const [zFrames, setZFrames] = useState<TKeyframes>([])
 
@@ -35,30 +36,15 @@ export default function CardStack ({ children }: CardStackProps) {
   const Y_PATH_MULTIPLIER = 45
   const FLIP_X = 1
   const FLIP_Y = -1
-  // "square coefficient"
-  const SQ_CO_1 = -0.5
+  const SQ_CO_1 = -0.5 // "square coefficient"
   const SQ_CO_2 = 1
   // const CU_CO_1 = -40
   // const CU_CO_2 = 80
   const SIN_EXPONENT = 2.2
   const SIN_DIVISOR = 1.45
 
-  /**
-   * initial setup
-   * - create dummy data
-   * - create frames for animations
-   * - set initial state
-   */
+  // initial setup
   useEffect(() => {
-    // create dummy data every refresh for now
-    for (let i = 0; i < 10; i++) {
-      dispatch(createPupper({
-        id: `${generateRandom()}`.split('.')[1],
-        name: `Card ${i + 1}`,
-        images: [{ src: `puppersrc${generateRandom()}` }]
-      }))
-    }
-
     // get simple arrays to convert to frames
     const p = generatePath(inverseParab)
     const zt = new Array(p.length).fill(null).map((_, i) => i * (100 / p.length))
@@ -85,11 +71,14 @@ export default function CardStack ({ children }: CardStackProps) {
       })
       return acc
     }, [])
-
     setWrapKeyframes(kf)
     setZFrames(zf)
-    console.log('set frames, keyframes?', kf, 'zframes?', zf, 'sinPath?', sinPath)
+    // console.log('cardref1 current', card1Ref.current.getBoundingClientRect())
   }, [])
+
+  useEffect(() => {
+    if (pupsInit) animateCards()
+  }, [animationToggle])
 
   const animationOptions = {
     duration: 250,
@@ -98,8 +87,9 @@ export default function CardStack ({ children }: CardStackProps) {
   }
 
   const inverseParab = (x: number) => (SQ_CO_1 * x**2) + (SQ_CO_2*x)
-  const sinSquare = (x: number) => (Math.sin((x**SIN_EXPONENT) / SIN_DIVISOR))
-  // const inverseCubic = (x: number) => (CU_CO_1 * x**3) + (CU_CO_2 * x**2)
+  const sinSquare = (x: number) => Math.sin((x**SIN_EXPONENT) / SIN_DIVISOR)
+  // may come in handy later
+  // const cubic = (x: number) => (CU_CO_1 * x**3) + (CU_CO_2 * x**2)
   // const sinCubic = (x: number) => Math.sin(((3 * x**3) + x**2 + (2 * x)) / 10.2)
 
   const generatePath = (cb: (x: number) => number) => {
@@ -123,26 +113,28 @@ export default function CardStack ({ children }: CardStackProps) {
       setNextPup(pups[1])
       setPupsInit(true)
     }
-
-    // probably card rating
-    // do some animation here
-    if (pupsInit) {
-      animateCards()
-    }
   }, [pups])
 
-  const animateCards = async () => {
-    console.log('zframes?', zFrames, 'keyframes?', wrapKeyframes)
+  // loads new data into the hidden card
+  const nextPupOnDeck = () => {
+    if (!cardInFront) {
+      setNextPup(pups[1])
+    } else {
+      setTopPup(pups[1])
+    }
+  }
 
+  const animateCards = async () => {
     const anim = card1Ref.current.animate(cardInFront ? wrapKeyframes : zFrames, animationOptions)
     const anim2 = card2Ref.current.animate(cardInFront ? zFrames : wrapKeyframes, animationOptions)
-    // card1Ref.current.animate(cardInFront ? wrapKeyframes : zFrames, animationOptions)
-    // card2Ref.current.animate(cardInFront ? zFrames : wrapKeyframes, animationOptions)
-    Promise.all([anim.finished, anim2.finished]).then(() => setCardInFront(!cardInFront))
-    // Promise.all([anim.finished, anim2.finished]).then((what:any) => console.log('what is what', what))
-    // await anim.finished
-    // await anim2.finished
-    // setCardInFront(!cardInFront)
+    // wait for animations to finish before setting state
+    await Promise.all([anim.finished, anim2.finished])
+      .then(() => {
+        setCardInFront(!cardInFront)
+      })
+      .then(() => {
+        nextPupOnDeck()
+      })
   }
 
   const renderInnerCard = (name: string) => (
@@ -167,6 +159,8 @@ export default function CardStack ({ children }: CardStackProps) {
 
   const thereArePups = pups.length > 0 && topPup && nextPup
 
+  // the animation hides one card behind the other
+  // so they need to be reordered in the dom or it doesn't look right
   const renderWrappedCards = () => {
     const arr = [(
       <WrappedCard key="wrapped-2" ref={card2Ref} className="card1">
@@ -182,6 +176,7 @@ export default function CardStack ({ children }: CardStackProps) {
     return cardInFront ? arr : arr.reverse()
   }
 
+  console.log('PUPS IS', pups)
   return (
     <div className="card-stack">
       <div>CARD STACK</div>

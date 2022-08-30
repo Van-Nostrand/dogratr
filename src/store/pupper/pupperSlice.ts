@@ -28,16 +28,14 @@ export const pupperSlice = createSlice({
     cyclePuppers: (state: IPupperState) => {
       state.pups = state.pups.slice(1)
     },
+    // generates 10 pups with random data
     seedDB: (state: IPupperState) => {
-      const newPups = []
-      for (let i = 0; i < 10; i++) {
-        newPups.push({
-          id: `${generateRandom()}`.split('.')[1],
-          name: `Card ${i + 1}`,
-          images: [{ src: `puppersrc${generateRandom()}` }],
-          bio: 'bio here'
-        })
-      }
+      const newPups = new Array(10).fill(null).map((_, i) => ({
+        id: `${generateRandom()}`.split('.')[1],
+        name: `Card ${i + 1}`,
+        images: [{ src: `puppersrc${generateRandom()}` }],
+        bio: 'bio here'
+      }))
       state.pups = newPups
     }
   }
