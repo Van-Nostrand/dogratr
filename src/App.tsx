@@ -1,24 +1,20 @@
 import React, { useEffect } from 'react'
-import {
-  Routes,
-  Route
-} from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { seedDB } from '@/store/pupper/pupperSlice'
 import Account from '@/pages/Account'
 import Ratr from '@/pages/Ratr'
 import LandingPage from '@/pages/LandingPage'
-import ThreeDTransformTest from '@/components/card-stack/ThreeDTransformTest'
-import ProtectedRoute from '@/hocs/ProtectedRoute'
-import useWindowScrolling from '@/hooks/useWindowScrolling'
 import Login from '@/pages/Login'
+import ThreeDTransformTest from '@/components/card-stack/ThreeDTransformTest'
 import TopNav from '@/components/TopNav'
-import useToken from '@/hooks/useToken'
+import ProtectedRoute from '@/hocs/ProtectedRoute'
+import { useToken, useWindowScrolling } from '@/hooks'
+import { seedDB } from '@/store/pupper/pupperSlice'
 
 
 export default function App () {
   const dispatch = useDispatch()
-  const { setToken } = useToken()
+  const { token, setToken } = useToken()
 
   useWindowScrolling()
   useEffect(() => {
@@ -36,7 +32,7 @@ export default function App () {
           <Route
             path='/account'
             element={
-              <ProtectedRoute isAuthenticated={false}>
+              <ProtectedRoute isAuthenticated={token}>
                 <Account />
               </ProtectedRoute>
             }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, forwardRef, useRef } from 'react'
 import DragCard from './DragCard'
-import useWindowSize from '@/hooks/useWindowSize'
+import { useWindowSize } from '@/hooks'
 import './three-d-test.scss'
 
 export default function ThreeDTransformTest () {

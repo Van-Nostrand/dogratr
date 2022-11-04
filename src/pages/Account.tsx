@@ -1,5 +1,5 @@
 import React from 'react'
-import { useShallowEqualSelector } from '@/hooks/useShallowEqualSelector'
+import useShallowEqualSelector from '@/hooks/useShallowEqualSelector'
 import { IRootStore, IHistory } from '@/store/types'
 // import seedStore from '@/functions/seedStore'
 import './account.scss'

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import useWindowSize from '@/hooks/useWindowSize'
+import { useWindowSize } from '@/hooks'
 
 interface CardProps {
   children?: any;
