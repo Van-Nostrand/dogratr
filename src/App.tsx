@@ -8,15 +8,19 @@ import Login from '@/pages/Login'
 import ThreeDTransformTest from '@/components/card-stack/ThreeDTransformTest'
 import TopNav from '@/components/TopNav'
 import ProtectedRoute from '@/hocs/ProtectedRoute'
-import { useToken, useWindowScrolling } from '@/hooks'
+import { useWindowScrolling, useShallowEqualSelector, useAuth } from '@/hooks'
 import { seedDB } from '@/store/pupper/pupperSlice'
-
+import { IRootStore } from '@/store/types'
 
 export default function App () {
   const dispatch = useDispatch()
-  const { token, setToken } = useToken()
+  const { isLoggedIn } = useShallowEqualSelector((state: IRootStore) => ({
+    isLoggedIn: state.auth.isLoggedIn
+  }))
+  const { setLogin } = useAuth()
 
   useWindowScrolling()
+
   useEffect(() => {
     dispatch(seedDB())
   }, [])
@@ -32,12 +36,12 @@ export default function App () {
           <Route
             path='/account'
             element={
-              <ProtectedRoute isAuthenticated={token}>
+              <ProtectedRoute isAuthenticated={isLoggedIn}>
                 <Account />
               </ProtectedRoute>
             }
           />
-          <Route path='/login' element={<Login setToken={setToken} />} />
+          <Route path='/login' element={<Login setLogin={setLogin} />} />
         </Routes>
       </div>
     </div>

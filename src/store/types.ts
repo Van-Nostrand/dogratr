@@ -6,6 +6,14 @@ export interface IHistory {
   value: number;
 }
 
+export interface IAuthState {
+  username: string
+  token: string
+  email: string
+  isLoggedIn: boolean
+  checkingToken: boolean
+}
+
 export interface IRootStore {
   counter: {
     value: number;
@@ -14,4 +22,5 @@ export interface IRootStore {
     history: IHistory[] | []
   },
   pupper: IPupperState
+  auth: IAuthState
 }

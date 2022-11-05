@@ -1,49 +1,28 @@
 import React, { useState } from 'react'
+import { authUser } from '@/functions/authFunctions'
+// import { useAuth } from '@/hooks'
 import './login.scss'
 
 interface LoginProps {
-  setToken: (s: string) => void;
+  setLogin: (data: any) => void
 }
 
-export default function Login ({ setToken }: LoginProps) {
+export default function Login ({ setLogin }: LoginProps) {
+
   const [username, setUsername] = useState<string>('')
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [loginMode, setLoginMode] = useState<boolean>(false)
 
-  async function authUser (credentials: any, route: string) {
-    console.log('authUser, creds', credentials, 'route', route)
-    return fetch(`http://localhost:8081/api/${route}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      mode: 'cors',
-      credentials: 'include',
-      body: JSON.stringify(credentials)
-    })
-      .then(response => {
-        if (response.status === 200) {
-          return response.text()
-        } else {
-          throw new Error('response status was not 200')
-        }
-      })
-      .then(d => {
-        console.log('authUser: response is', d)
-        return d
-      })
-      .catch((e) => console.error('error while authorizing user', e.message))
-  }
-
   const handleSubmit = async (e: any) => {
     e.preventDefault()
     if (username && password && (!loginMode && email || loginMode)) {
-      const token = await authUser(
+      const data = await authUser(
         { user: { username, password, ...(!loginMode && email ? { email } : {}) } },
         loginMode ? 'login' : 'create-user'
       )
-      setToken(token || null)
+
+      setLogin(data || null)
     }
   }
 

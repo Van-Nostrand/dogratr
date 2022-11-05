@@ -2,6 +2,7 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import counterReducer from '@/store/counter/counterSlice'
 import ratingReducer from '@/store/rating/ratingSlice'
 import pupperReducer from '@/store/pupper/pupperSlice'
+import authReducer from '@/store/auth/authSlice'
 import storage from 'redux-persist/lib/storage'
 import { persistReducer, persistStore } from 'redux-persist'
 import thunk from 'redux-thunk'
@@ -15,7 +16,8 @@ const persistConfig = {
 const reducers = combineReducers({
   counter: counterReducer,
   rating: ratingReducer,
-  pupper: pupperReducer
+  pupper: pupperReducer,
+  auth: authReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, reducers)

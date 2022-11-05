@@ -1,8 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useShallowEqualSelector } from '@/hooks'
+import { IRootStore } from '@/store/types'
 import './topnav.scss'
 
 export default function TopNav () {
+  const { isLoggedIn } = useShallowEqualSelector((state: IRootStore) => ({
+    isLoggedIn: state.auth.isLoggedIn
+  }))
+
   const handleLogout = () => {
     localStorage.removeItem('token')
     window.location.replace('/')
@@ -14,8 +20,12 @@ export default function TopNav () {
         <Link to="/account">account</Link>
         <Link to="/ratr">Ratr</Link>
         <Link to="/">Home</Link>
-        <Link to="/login">Login</Link>
-        <button onClick={handleLogout}>Logout</button>
+
+        { isLoggedIn
+          ? <button onClick={handleLogout}>Logout</button>
+          : <Link to="/login">Login</Link>
+        }
+
       </div>
     </nav>
   )

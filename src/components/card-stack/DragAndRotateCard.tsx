@@ -26,7 +26,6 @@ export default function DragAndRotateCard ({ children, innerRef, className }: Dr
   const ORIGIN_Y_BUFFER = 500
 
   useEffect(() => {
-    console.log('init useeffect')
     if (cardWidth === 0) {
       setCardWidth(getRekt().width)
     }
@@ -43,7 +42,6 @@ export default function DragAndRotateCard ({ children, innerRef, className }: Dr
     setCardX(x)
     setCardY(y)
     setOrigin([x, y + ORIGIN_Y_BUFFER])
-    console.log('card width?', cardWidth, 'inner?', innerWidth)
     const leftamt = `${(innerWidth / 2) - (372 / 2)}px`
     // set the card in the middle of the screen
     cardRef.current.style.left = leftamt
@@ -89,7 +87,6 @@ export default function DragAndRotateCard ({ children, innerRef, className }: Dr
   }
 
   const updateCardPosition = () => {
-    console.log('UPDATE CARD POSITION')
     cardRef.current.style.transform = `translate(${posX}px, ${posY}px) rotate(${rotation})`
   }
 

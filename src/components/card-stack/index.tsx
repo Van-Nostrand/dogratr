@@ -176,7 +176,7 @@ export default function CardStack ({ children, animationToggle }: CardStackProps
     return cardInFront ? arr : arr.reverse()
   }
 
-  console.log('PUPS IS', pups)
+  // console.log('PUPS IS', pups)
   return (
     <div className="card-stack">
       <div>CARD STACK</div>

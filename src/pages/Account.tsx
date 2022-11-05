@@ -7,14 +7,14 @@ import './account.scss'
 export default function Account () {
 
   const { history } = useShallowEqualSelector((state: IRootStore) => state.rating)
-  const { pups } = useShallowEqualSelector((state: IRootStore) => {
-    console.log('STATE IS', state)
-    return state.pupper
-  })
+  // const { pups } = useShallowEqualSelector((state: IRootStore) => {
+  //   // console.log('STATE IS', state)
+  //   return state.pupper
+  // })
 
   // const findPup = (id: string) => pups.find((p) => p.id === id)
 
-  console.log('pups???', pups)
+  // console.log('pups???', pups)
   const historyItem = (data: IHistory, i: number) => (
     <li
       key={`hitem${i}`}
