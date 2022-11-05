@@ -16,7 +16,7 @@ export default function useToken () {
   const saveToken = (userToken: any) => {
     const today = new Date()
     const nextMonth = new Date(today.getUTCFullYear(), today.getUTCMonth() + 1, today.getUTCDate())
-    document.cookie = `token=${userToken};samesite=lax;expires=${nextMonth.toUTCString()}`
+    document.cookie = `token=${userToken || ''};samesite=lax;expires=${nextMonth.toUTCString()}`
     setToken(userToken)
   }
 

@@ -43,7 +43,7 @@ export default function Login ({ setToken }: LoginProps) {
         { user: { username, password, ...(!loginMode && email ? { email } : {}) } },
         loginMode ? 'login' : 'create-user'
       )
-      if (token) setToken(token)
+      setToken(token || null)
     }
   }
 
