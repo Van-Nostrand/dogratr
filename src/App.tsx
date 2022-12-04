@@ -1,29 +1,46 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
 import Account from '@/pages/Account'
 import Ratr from '@/pages/Ratr'
 import LandingPage from '@/pages/LandingPage'
+import CreatePupper from '@/pages/CreatePupper'
 import Login from '@/pages/Login'
 import ThreeDTransformTest from '@/components/card-stack/ThreeDTransformTest'
 import TopNav from '@/components/TopNav'
 import ProtectedRoute from '@/hocs/ProtectedRoute'
-import { useWindowScrolling, useShallowEqualSelector, useAuth } from '@/hooks'
-import { seedDB } from '@/store/pupper/pupperSlice'
+import { useWindowScrolling, useAuth, useShallowEqualSelector } from '@/hooks'
+// import { seedDB } from '@/store/pupper/pupperSlice'
+// import { setHistory } from '@/store/rating/ratingSlice'
+// import { fetchRatingsForUser } from '@/functions/authFunctions'
 import { IRootStore } from '@/store/types'
 
 export default function App () {
-  const dispatch = useDispatch()
-  const { isLoggedIn } = useShallowEqualSelector((state: IRootStore) => ({
-    isLoggedIn: state.auth.isLoggedIn
+  // const dispatch = useDispatch()
+  const {
+    verifiedLogin,
+    checkingToken,
+    // username,
+    // email
+  } = useShallowEqualSelector((state: IRootStore) => ({
+    verifiedLogin: state.auth.verifiedLogin,
+    checkingToken: state.auth.checkingToken,
+    // username: state.auth.username,
+    // email: state.auth.email
   }))
   const { setLogin } = useAuth()
 
   useWindowScrolling()
 
-  useEffect(() => {
-    dispatch(seedDB())
-  }, [])
+  // useEffect(() => {
+  //   // dispatch(seedDB())
+  //   // load ratings from the db
+  //   if (verifiedLogin && !checkingToken && username && email) {
+  //     fetchRatingsForUser({ username: 'mike' })
+  //       .then((res) => {
+  //         dispatch(setHistory(res))
+  //       })
+  //   }
+  // }, [verifiedLogin, checkingToken, username, email])
 
   return (
     <div className="page-content">
@@ -36,13 +53,22 @@ export default function App () {
           <Route
             path='/account'
             element={
-              <ProtectedRoute isAuthenticated={isLoggedIn}>
+              <ProtectedRoute>
                 <Account />
               </ProtectedRoute>
             }
           />
           <Route path='/login' element={<Login setLogin={setLogin} />} />
+          <Route
+            path='/create-pupper'
+            element={
+              <ProtectedRoute>
+                <CreatePupper />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
+        {!verifiedLogin && !checkingToken && <div>logged out popup</div>}
       </div>
     </div>
   )

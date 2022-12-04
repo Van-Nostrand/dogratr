@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {
   useEffect,
   useState
@@ -5,8 +6,9 @@ import React, {
 import { useSelector, useDispatch } from 'react-redux'
 import CardStack from '@/components/card-stack'
 import { addRating } from '@/store/rating/ratingSlice'
-import { cyclePuppers } from '@/store/pupper/pupperSlice'
+import { cyclePuppers, setAllPuppers } from '@/store/pupper/pupperSlice'
 import { IRootStore } from '@/store/types'
+import { getRandomDogImageUrl, getPresetPups } from '@/functions/generateRandom'
 import './ratr.scss'
 
 // const API = 'https://dog.ceo/api/breeds/image/random'
@@ -27,6 +29,13 @@ export default function Ratr () {
 
   useEffect(() => {
     // setImageSrc(`imagesrc${(Math.random() + 1) * Math.random()}`)
+    // getRandomDogImageUrl()
+    //   .then((response) => {
+    //     console.log('IN RATR, RESPONSE IS', response)
+    //     dispatch(setAllPuppers(response))
+    //   })
+    const p = getPresetPups()
+    dispatch(setAllPuppers(p))
     offlineSetNewImage()
   }, [])
 
@@ -43,11 +52,12 @@ export default function Ratr () {
   }
 
   const handleRating = (i: number) => {
-    dispatch(addRating({
-      src: imageSrc,
-      id: `${Math.random()}`.split('.')[1],
-      value: i
-    }))
+    // dispatch(addRating({
+    //   src: imageSrc,
+    //   id: `${Math.random()}`.split('.')[1],
+    //   value: i
+    // }))
+    // console.log('handleRating, argument is ', i)
     setCardNumber(cardNumber + 1)
     dispatch(cyclePuppers())
     offlineSetNewImage()
@@ -65,14 +75,14 @@ export default function Ratr () {
     ))
   }
 
-  const renderHistory = () => {
-    return history.map((h, i) => (
-      <div key={`hist${i}`}>
-        <div>{h?.src}</div>
-        <div>{h?.id}</div>
-      </div>
-    ))
-  }
+  // const renderHistory = () => {
+  //   return history.map((h, i) => (
+  //     <div key={`hist${i}`}>
+  //       <div>{h?.src}</div>
+  //       <div>{h?.pupID}</div>
+  //     </div>
+  //   ))
+  // }
   // interface WrappedStackProps {
   //   children: any;
   //   animationRef: any;
@@ -96,9 +106,9 @@ export default function Ratr () {
         </CardStack>
         {/* </WrappedStack> */}
       </div>
-      <div className="rating-history">
+      {/* <div className="rating-history">
         { renderHistory() }
-      </div>
+      </div> */}
     </div>
   )
 }

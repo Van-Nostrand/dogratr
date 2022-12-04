@@ -1,29 +1,38 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { logOut } from '@/store/auth/authSlice'
 import { useShallowEqualSelector } from '@/hooks'
+import { deleteCookie } from '@/functions/authFunctions'
 import { IRootStore } from '@/store/types'
 import './topnav.scss'
 
 export default function TopNav () {
-  const { isLoggedIn } = useShallowEqualSelector((state: IRootStore) => ({
-    isLoggedIn: state.auth.isLoggedIn
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { verifiedLogin } = useShallowEqualSelector((state: IRootStore) => ({
+    verifiedLogin: state.auth.verifiedLogin
   }))
 
   const handleLogout = () => {
-    localStorage.removeItem('token')
-    window.location.replace('/')
+    deleteCookie('token')
+    deleteCookie('email')
+    deleteCookie('username')
+    dispatch(logOut())
+    navigate('/')
   }
+
   return (
     <nav className="top-nav">
-      <div>topnav</div>
       <div className="top-nav__links">
         <Link to="/account">account</Link>
         <Link to="/ratr">Ratr</Link>
         <Link to="/">Home</Link>
 
-        { isLoggedIn
-          ? <button onClick={handleLogout}>Logout</button>
-          : <Link to="/login">Login</Link>
+        {
+          verifiedLogin
+            ? <button onClick={handleLogout}>Logout</button>
+            : <Link to="/login">Login</Link>
         }
 
       </div>
