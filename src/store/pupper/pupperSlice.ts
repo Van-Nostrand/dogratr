@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
-import generateRandom from '@/functions/generateRandom'
+import { generateRandom } from '@/functions/generateRandom'
 
 interface IPupImage {
   src: string;
 }
 
 export interface IPup {
-  id: string;
+  pupID: string;
   name: string;
   bio: string;
   images: IPupImage[]
@@ -22,6 +22,9 @@ export const pupperSlice = createSlice({
     pups: []
   },
   reducers: {
+    setAllPuppers: (state, action) => {
+      state.pups = action.payload
+    },
     createPupper: (state: IPupperState, action) => {
       state.pups = [...state.pups, action.payload]
     },
@@ -30,17 +33,19 @@ export const pupperSlice = createSlice({
     },
     // generates 10 pups with random data
     seedDB: (state: IPupperState) => {
-      const newPups = new Array(10).fill(null).map((_, i) => ({
-        id: `${generateRandom()}`.split('.')[1],
-        name: `Card ${i + 1}`,
-        images: [{ src: `puppersrc${generateRandom()}` }],
-        bio: 'bio here'
-      }))
+      const newPups = new Array(10).fill(null).map((_, i) => {
+        return {
+          pupID: `${generateRandom()}`.split('.')[1],
+          name: `Card ${i + 1}`,
+          images: [{ src: `puppersrc${generateRandom()}` }],
+          bio: 'bio here'
+        }
+      })
       state.pups = newPups
     }
   }
 })
 
-export const { createPupper, cyclePuppers, seedDB } = pupperSlice.actions
+export const { createPupper, cyclePuppers, seedDB, setAllPuppers } = pupperSlice.actions
 
 export default pupperSlice.reducer

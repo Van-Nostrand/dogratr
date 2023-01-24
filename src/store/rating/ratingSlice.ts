@@ -17,10 +17,14 @@ export const ratingSlice = createSlice({
   reducers: {
     addRating: (state: IRatingState, action: IAction) => {
       state.history = [...state.history, action.payload]
+    },
+
+    setHistory: (state, action) => {
+      state.history = action.payload
     }
   }
 })
 
-export const { addRating } = ratingSlice.actions
+export const { addRating, setHistory } = ratingSlice.actions
 
 export default ratingSlice.reducer

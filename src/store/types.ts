@@ -2,16 +2,18 @@ import { IPupperState } from '@/store/pupper/pupperSlice'
 
 export interface IHistory {
   src: string;
-  id: string;
+  pupID: string;
   value: number;
+  created: string
 }
 
 export interface IAuthState {
   username: string
   token: string
   email: string
-  isLoggedIn: boolean
+  // isLoggedIn: boolean
   checkingToken: boolean
+  verifiedLogin: boolean
 }
 
 export interface IRootStore {

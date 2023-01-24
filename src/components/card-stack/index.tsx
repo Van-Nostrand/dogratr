@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useRef, forwardRef } from 'react'
-import { useSelector } from 'react-redux'
+// import { useSelector } from 'react-redux'
 import { IPup } from '@/store/pupper/pupperSlice'
 import DragAndRotateCard from './DragAndRotateCard'
 import { IRootStore } from '@/store/types'
+import { useShallowEqualSelector } from '@/hooks'
 import './card-stack.scss'
 
 interface CardStackProps {
@@ -22,8 +23,7 @@ export default function CardStack ({ children, animationToggle }: CardStackProps
   // const dispatch = useDispatch()
   const card1Ref = useRef(null)
   const card2Ref = useRef(null)
-  const pups = useSelector((state: IRootStore) => state.pupper.pups)
-  // const generateRandom = () => (Math.random() + 1) * Math.random()
+  const pups = useShallowEqualSelector((state: IRootStore) => state.pupper.pups)
 
   const [topPup, setTopPup] = useState<IPup | undefined>()
   const [nextPup, setNextPup] = useState<IPup | undefined>()
@@ -73,7 +73,6 @@ export default function CardStack ({ children, animationToggle }: CardStackProps
     }, [])
     setWrapKeyframes(kf)
     setZFrames(zf)
-    // console.log('cardref1 current', card1Ref.current.getBoundingClientRect())
   }, [])
 
   useEffect(() => {
@@ -137,9 +136,11 @@ export default function CardStack ({ children, animationToggle }: CardStackProps
       })
   }
 
-  const renderInnerCard = (name: string) => (
+  const renderInnerCard = (name: string, src:string) => (
     <div className="card">
-      <div className="card__image" />
+      <div className="card__image">
+        <img src={src} />
+      </div>
       <div className="card__name">
         { name }
       </div>
@@ -164,19 +165,18 @@ export default function CardStack ({ children, animationToggle }: CardStackProps
   const renderWrappedCards = () => {
     const arr = [(
       <WrappedCard key="wrapped-2" ref={card2Ref} className="card1">
-        { renderInnerCard(nextPup.name) }
+        { renderInnerCard(nextPup.name, nextPup.images[0].src) }
         { children }
       </WrappedCard>
     ), (
       <WrappedCard key="wrapped-1" ref={card1Ref} className="card2">
-        { renderInnerCard(topPup.name) }
+        { renderInnerCard(topPup.name, topPup.images[0].src) }
         { children }
       </WrappedCard>
     )]
     return cardInFront ? arr : arr.reverse()
   }
 
-  // console.log('PUPS IS', pups)
   return (
     <div className="card-stack">
       <div>CARD STACK</div>

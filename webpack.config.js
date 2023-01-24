@@ -14,7 +14,8 @@ const config = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: './bundle.js'
+    filename: './bundle.js',
+    clean: true
   },
   resolve: {
     alias: {
@@ -87,11 +88,7 @@ const config = {
       filename: 'index.html',
       inject: 'body',
     }),
-    new ForkTsCheckerWebpackPlugin({
-      eslint: {
-        files: './src/**/*.{ts,tsx,js,jsx}'
-      }
-    }),
+    new ForkTsCheckerWebpackPlugin(),
     new StylelintPlugin({
       context: './src/scss/'
     })
