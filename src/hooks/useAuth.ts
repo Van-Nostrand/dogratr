@@ -1,8 +1,9 @@
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { setLoggedIn, setCheckingToken } from '@/store/auth/authSlice'
-import getCookies from '@/functions/getCookies'
-import { checkUserToken, deleteCookie } from '@/functions/authFunctions'
+import { getAllCookies } from '@/functions/cookies'
+import { checkUserToken } from '@/functions/authFunctions'
+import { deleteCookie } from '@/functions/cookies'
 
 export default function useAuth () {
   const dispatch = useDispatch()
@@ -19,7 +20,7 @@ export default function useAuth () {
       deleteCookie('email')
       deleteCookie('username')
     } else {
-      saveLogin(cookies)
+      setLogin(cookies)
     }
 
     dispatch(setCheckingToken(false))
@@ -29,7 +30,7 @@ export default function useAuth () {
 
   // does not assume login is valid
   useEffect(() => {
-    const cookies = getCookies()
+    const cookies = getAllCookies()
 
     if (Object.keys(cookies).length > 0) {
       handleVerifyLogin(cookies)
@@ -37,7 +38,7 @@ export default function useAuth () {
   }, [])
 
   // assumes login is valid
-  const saveLogin = (data: any) => {
+  const setLogin = (data: any) => {
     if (data !== null) {
       const today = new Date()
       const nextMonth = new Date(today.getUTCFullYear(), today.getUTCMonth() + 1, today.getUTCDate())
@@ -49,7 +50,8 @@ export default function useAuth () {
           deleteCookie(key)
         }
       })
-
+      // TODO email is missing
+      console.log('useAuth.setLogin() ABOUT TO DISPATCH THIS:', data)
       dispatch(setLoggedIn({
         token: data.token,
         username: data.username,
@@ -58,5 +60,5 @@ export default function useAuth () {
     }
   }
 
-  return { setLogin: saveLogin }
+  return { setLogin }
 }

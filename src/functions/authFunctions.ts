@@ -61,9 +61,11 @@ async function fetchRatingsForUser ({ username }: { username: string }) {
   }
 }
 
-function deleteCookie (key: string) {
-  console.log('deleteCookie for key', key)
-  document.cookie = `${key}=;path=/;expires=${new Date(0).toUTCString()};`
-}
+// function deleteCookie (key: string) {
+//   console.log('deleteCookie for key', key)
+//   document.cookie = `${key}=;path=/;expires=${new Date(0).toUTCString()};`
+// }
 
-export { authUser, checkUserToken, deleteCookie, fetchRatingsForUser }
+// async function createPupper ()
+
+export { authUser, checkUserToken, fetchRatingsForUser }

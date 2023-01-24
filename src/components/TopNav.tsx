@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { logOut } from '@/store/auth/authSlice'
 import { useShallowEqualSelector } from '@/hooks'
-import { deleteCookie } from '@/functions/authFunctions'
+import { deleteCookie } from '@/functions/cookies'
 import { IRootStore } from '@/store/types'
 import './topnav.scss'
 
