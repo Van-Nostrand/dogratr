@@ -11,7 +11,6 @@ export interface IAuthState {
   username: string
   token: string
   email: string
-  // isLoggedIn: boolean
   checkingToken: boolean
   verifiedLogin: boolean
 }

@@ -2,8 +2,7 @@ import React from 'react'
 import { Navigate } from 'react-router-dom'
 import { useShallowEqualSelector } from '@/hooks'
 import { IRootStore } from '@/store/types'
-// import { useDispatch } from 'react-redux'
-
+import Loading from '@/components/Loading'
 
 interface ProtectedRouteProps {
   children: any
@@ -30,8 +29,11 @@ export default function ProtectedRoute ({ children }: ProtectedRouteProps) {
     verifiedLogin: state.auth.verifiedLogin,
     checkingToken: state.auth.checkingToken
   }))
-
-  if (!checkingToken && !verifiedLogin) {
+  console.log('protected route, verified?', verifiedLogin, 'checking?', checkingToken)
+  if (checkingToken) {
+    return <Loading />
+  }
+  if (!verifiedLogin) {
     return (
       <Navigate to="/login" replace />
     )

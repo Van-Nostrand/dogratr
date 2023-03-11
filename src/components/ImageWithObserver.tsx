@@ -7,11 +7,11 @@ import RandomPlaceholder from '@/components/RandomPlaceholder'
 
 interface ImageWithObserverProps {
   imageData: {
-    name: string;
-    publicId: string;
+    name: string
+    publicId: string
   }
-  width: number;
-  offline: boolean;
+  width: number
+  offline: boolean
 }
 
 /**

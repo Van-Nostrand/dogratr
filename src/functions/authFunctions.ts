@@ -4,13 +4,15 @@ async function authUser (credentials: any, route: string) {
   return await fetch(`http://localhost:8081/api/${route}`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Credentials': 'true'
     },
     mode: 'cors',
     credentials: 'include',
     body: JSON.stringify(credentials)
   })
     .then((response) => {
+      console.log('authUser response is', response)
       if (response.status === 200) {
         return response.json()
       } else {

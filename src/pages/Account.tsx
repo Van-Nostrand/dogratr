@@ -89,15 +89,6 @@ export default function Account () {
     // console.log('ACCNT SCREEN VERIFIED')
   }
 
-  // const renderVerifyComponent = () => (
-  //   <div className="account-page__verification">
-  //     <div>{ verifiedLogin ? 'account verified' : 'not verified' }</div>
-  //     <div>{ checkingToken ? 'checking token' : 'done checking token'}</div>
-  //     { !verifiedLogin && !checkingToken && <div>{'creds aren\'t authentic'}</div> }
-  //     { verifiedLogin && !checkingToken && <div>{'creds are authentic'}</div>}
-  //   </div>
-  // )
-
   return (
     <div className="account-page">
       <div className="account-page__title">the account page</div>
@@ -115,8 +106,6 @@ export default function Account () {
           <div>STILL LOADING VERIFICATION</div>
         )
       }
-
-      {/* { renderVerifyComponent() } */}
     </div>
   )
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 interface GoBackArrowProps {
-  to: string;
+  to: string
 }
 
 export default function GoBackArrow (props: GoBackArrowProps) {

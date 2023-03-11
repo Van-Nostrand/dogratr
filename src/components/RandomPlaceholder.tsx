@@ -3,10 +3,10 @@ import { getRandomIntBetween } from '@/functions/getRandomIntBetween'
 import '@/scss/components/random-placeholder.scss'
 
 interface RandomPlaceholderProps {
-  maxWidth?: number;
-  minWidth?: number;
-  maxHeight?: number;
-  minHeight?: number;
+  maxWidth?: number
+  minWidth?: number
+  maxHeight?: number
+  minHeight?: number
 }
 
 export default function RandomPlaceholder (props: RandomPlaceholderProps) {

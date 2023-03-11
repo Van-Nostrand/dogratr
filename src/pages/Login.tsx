@@ -16,10 +16,10 @@ export default function Login ({ setLogin }: LoginProps) {
     checkingToken: state.auth.checkingToken
   }))
 
-  const [username, setUsername] = useState<string>('')
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-  const [loginMode, setLoginMode] = useState<boolean>(false)
+  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [loginMode, setLoginMode] = useState(false)
 
   // if loading this page directly, navigate to ratr once user login has been validated
   useEffect(() => {
@@ -33,10 +33,12 @@ export default function Login ({ setLogin }: LoginProps) {
     if (username && password && (!loginMode && email || loginMode)) {
       const apiEndpoint = loginMode ? 'login' : 'create-user'
       try {
+        console.log('about to auth user')
         const data = await authUser(
           { user: { username, password, ...(!loginMode && email ? { email } : {}) } },
           apiEndpoint
         )
+
         if (!('token' in data)) {
           throw new Error(`${apiEndpoint} api response does not contain token`, { cause: data })
         }

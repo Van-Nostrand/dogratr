@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-// import axios from 'axios'
 import TextInput from '@/components/TextInput'
 import { useShallowEqualSelector } from '@/hooks'
 import { IRootStore } from '@/store/types'
@@ -7,7 +6,6 @@ import { IRootStore } from '@/store/types'
 export default function CreatePupper () {
   const { username } = useShallowEqualSelector((state: IRootStore) => ({ username: state.auth.username }))
   const [pupName, setPupName] = useState<string>('')
-  // eslint-disable-next-line
   const [file, setFile] = useState<File>()
 
   const handleChange = (e: any) => {
@@ -22,13 +20,9 @@ export default function CreatePupper () {
     formData.append('file', file, file.name)
     formData.append('name', pupName)
     formData.append('username', username)
-    // formData.append('name', JSON.stringify({ username, name: pupName }))
 
     fetch('http://localhost:8081/create-pupper', {
       method: 'POST',
-      // headers: {
-      //   'Content-Type': 'multipart/form-data'
-      // },
       mode: 'cors',
       credentials: 'include',
       body: formData,
@@ -40,11 +34,6 @@ export default function CreatePupper () {
         console.error('error creating pupper', error.message)
       })
 
-    // axios.post(
-    //   'http://localhost:8081/create-pupper',
-    //   formData,
-    //   { headers: { 'Content-Type': 'multipart/form-data' } }
-    // )
     setFile(undefined)
     setPupName('')
   }

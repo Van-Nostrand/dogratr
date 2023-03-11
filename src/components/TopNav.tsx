@@ -15,9 +15,7 @@ export default function TopNav () {
   }))
 
   const handleLogout = () => {
-    deleteCookie('token')
-    deleteCookie('email')
-    deleteCookie('username')
+    deleteCookie(['token', 'email', 'username'])
     dispatch(logOut())
     navigate('/')
   }
@@ -25,7 +23,7 @@ export default function TopNav () {
   return (
     <nav className="top-nav">
       <div className="top-nav__links">
-        <Link to="/account">account</Link>
+        {verifiedLogin && <Link to="/account">account</Link>}
         <Link to="/ratr">Ratr</Link>
         <Link to="/">Home</Link>
 

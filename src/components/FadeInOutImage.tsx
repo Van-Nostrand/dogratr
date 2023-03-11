@@ -2,10 +2,10 @@ import React, { useEffect, useRef } from 'react'
 import './image.scss'
 
 export interface FadeInOutImageProps {
-  src: string;
-  imageFaded: boolean;
-  setImageFaded: (b: boolean) => void;
-  alt?: string;
+  src: string
+  imageFaded: boolean
+  setImageFaded: (b: boolean) => void
+  alt?: string
 }
 
 export default function FadeInOutImage ({ src, alt, imageFaded, setImageFaded }: FadeInOutImageProps) {
